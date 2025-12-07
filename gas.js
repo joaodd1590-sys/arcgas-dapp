@@ -1,15 +1,28 @@
-document.getElementById("calculate").addEventListener("click", () => {
-    const gas = Number(document.getElementById("gasUsed").value);
-    const gwei = Number(document.getElementById("gasPrice").value);
+// Estimativa simples usando Gwei -> "USDC" (placeholders)
+// A lógica é a mesma de antes, só mudamos o texto que aparece.
 
-    if (!gas || !gwei) {
-        alert("Please enter valid numeric values.");
-        return;
-    }
+function calculate() {
+  const gasUsed = Number(document.getElementById("gasUsed").value);
+  const gasPriceGwei = Number(document.getElementById("gasPrice").value);
 
-    // Convert Gwei → USDC-like decimals
-    const totalFee = (gas * gwei) / 1e9;
+  if (!gasUsed || !gasPriceGwei) {
+    alert("Please enter Gas Used and Gas Price.");
+    return;
+  }
 
-    document.getElementById("totalFee").innerText = totalFee.toFixed(12) + " USDC";
-    document.getElementById("totalUSD").innerText = "$" + totalFee.toFixed(12);
-});
+  // 1 gwei = 1e-9 unidade "USDC" (apenas para ter um número pequeno bonitinho)
+  const unitPerGwei = 1e-9;
+
+  const totalFeeUSDC = gasUsed * gasPriceGwei * unitPerGwei;
+
+  // Como USDC ~ 1 USD, a estimativa em USD é praticamente igual
+  const estimatedUSD = totalFeeUSDC;
+
+  document.getElementById("fee").textContent =
+    totalFeeUSDC.toFixed(10) + " USDC";
+
+  document.getElementById("usd").textContent =
+    "$" + estimatedUSD.toFixed(6);
+
+  document.getElementById("result").classList.remove("hidden");
+}
