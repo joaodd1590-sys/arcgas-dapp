@@ -1,23 +1,15 @@
-// Estimated ARC price in USD (placeholder since Arc has no token yet)
-const ARC_USD = 0.002; 
+document.getElementById("calculate").addEventListener("click", () => {
+    const gas = Number(document.getElementById("gasUsed").value);
+    const gwei = Number(document.getElementById("gasPrice").value);
 
-function calculate() {
-    const gasUsed = Number(document.getElementById("gasUsed").value);
-    const gasPriceGwei = Number(document.getElementById("gasPrice").value);
-
-    if (!gasUsed || !gasPriceGwei) {
-        alert("Please enter Gas Used and Gas Price.");
+    if (!gas || !gwei) {
+        alert("Please enter valid numeric values.");
         return;
     }
 
-    // Convert Gwei to ARC (1 gwei = 1e-9 ARC, similar to ETH)
-    const gasPriceARC = gasPriceGwei * 1e-9;
+    // Convert Gwei → USDC-like decimals
+    const totalFee = (gas * gwei) / 1e9;
 
-    const totalFeeARC = gasUsed * gasPriceARC;
-    const estimatedUSD = totalFeeARC * ARC_USD;
-
-    document.getElementById("fee").textContent = totalFeeARC.toFixed(10);
-    document.getElementById("usd").textContent = "$" + estimatedUSD.toFixed(6);
-
-    document.getElementById("result").classList.remove("hidden");
-}
+    document.getElementById("totalFee").innerText = totalFee.toFixed(12) + " USDC";
+    document.getElementById("totalUSD").innerText = "$" + totalFee.toFixed(12);
+});
