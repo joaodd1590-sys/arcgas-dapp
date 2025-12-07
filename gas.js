@@ -1,22 +1,17 @@
-function calculate() {
-  const gasUsed = Number(document.getElementById("gasUsed").value);
-  const gasPriceGwei = Number(document.getElementById("gasPrice").value);
+document.getElementById("calculate").addEventListener("click", () => {
+    const gas = Number(document.getElementById("gasUsed").value);
+    const gwei = Number(document.getElementById("gasPrice").value);
 
-  if (!gasUsed || !gasPriceGwei) {
-    alert("Please enter Gas Used and Gas Price.");
-    return;
-  }
+    if (!gas || !gwei) {
+        alert("Please enter valid numeric values.");
+        return;
+    }
 
-  const unitPerGwei = 1e-9;
+    // Convert Gwei to USDC-like units (1 gwei = 1e-9)
+    const totalFee = (gas * gwei) / 1e9;
 
-  const totalFeeUSDC = gasUsed * gasPriceGwei * unitPerGwei;
-  const estimatedUSD = totalFeeUSDC;
+    document.getElementById("fee").innerText = totalFee.toFixed(10) + " USDC";
+    document.getElementById("usd").innerText = "$" + totalFee.toFixed(6);
 
-  document.getElementById("fee").textContent =
-    totalFeeUSDC.toFixed(10) + " USDC";
-
-  document.getElementById("usd").textContent =
-    "$" + estimatedUSD.toFixed(6);
-
-  document.getElementById("result").classList.remove("hidden");
-}
+    document.getElementById("result").classList.remove("hidden");
+});
