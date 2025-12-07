@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARC Gas Estimator</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>ARC Gas Estimator</h1>
+        <p class="sub">Estimate transaction fees on Arc Testnet</p>
+
+        <div class="card">
+            <label>Gas Used</label>
+            <input type="number" id="gasUsed" placeholder="Enter gas used (ex: 21000)" />
+
+            <label>Gas Price (Gwei)</label>
+            <input type="number" id="gasPrice" placeholder="Enter gas price (ex: 5)" />
+
+            <button onclick="calculate()">Calculate</button>
+
+            <div id="result" class="result hidden">
+                <h3>Result</h3>
+                <p><strong>Total Fee:</strong> <span id="fee"></span> ARC</p>
+                <p><strong>Total Fee (USD est.):</strong> <span id="usd"></span></p>
+            </div>
+        </div>
+
+        <footer>
+            Built by João Carlos • Arc Ecosystem Community 🚀
+        </footer>
+    </div>
+
+    <script src="gas.js"></script>
+</body>
+</html>
