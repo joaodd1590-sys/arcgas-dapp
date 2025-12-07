@@ -1,6 +1,3 @@
-// Estimativa simples usando Gwei -> "USDC" (placeholders)
-// A lógica é a mesma de antes, só mudamos o texto que aparece.
-
 function calculate() {
   const gasUsed = Number(document.getElementById("gasUsed").value);
   const gasPriceGwei = Number(document.getElementById("gasPrice").value);
@@ -10,12 +7,9 @@ function calculate() {
     return;
   }
 
-  // 1 gwei = 1e-9 unidade "USDC" (apenas para ter um número pequeno bonitinho)
   const unitPerGwei = 1e-9;
 
   const totalFeeUSDC = gasUsed * gasPriceGwei * unitPerGwei;
-
-  // Como USDC ~ 1 USD, a estimativa em USD é praticamente igual
   const estimatedUSD = totalFeeUSDC;
 
   document.getElementById("fee").textContent =
