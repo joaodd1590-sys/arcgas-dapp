@@ -1,84 +1,108 @@
-body {
-    background: #0b0c10;
-    color: #c5c6c7;
-    font-family: 'Segoe UI', sans-serif;
+/* Reset */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-.container {
-    max-width: 450px;
-    margin: 50px auto;
-    text-align: center;
+body {
+    background-color: #0f0f10;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
 }
 
+/* Title */
 h1 {
-    color: #66fcf1;
     font-size: 32px;
-}
-
-.sub {
-    margin-bottom: 20px;
-    font-size: 14px;
-    opacity: 0.7;
-}
-
-.card {
-    background: #1f2833;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px #66fcf144;
-}
-
-label {
-    display: block;
-    text-align: left;
-    margin-top: 15px;
-    color: #45a29e;
     font-weight: bold;
-    font-size: 14px;
+    color: #70ffea;
+    margin-bottom: 10px;
 }
 
+.subtitle {
+    font-size: 16px;
+    color: #cccccc;
+    margin-bottom: 40px;
+}
+
+/* Card wrapper */
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 25px;
+    background-color: #1b1c1f;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.1);
+}
+
+/* Labels */
+label {
+    font-size: 16px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* Inputs */
 input {
     width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
-    margin-top: 5px;
-    font-size: 15px;
-}
-
-button {
-    width: 100%;
-    margin-top: 20px;
     padding: 12px;
-    background: #66fcf1;
-    color: #000;
-    font-weight: bold;
     border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    border-radius: 8px;
+    margin-bottom: 20px;
     font-size: 16px;
 }
 
-button:hover {
-    background: #45a29e;
-}
-
-.result {
-    margin-top: 20px;
-    background: #0b0c10;
-    padding: 15px;
+/* Button */
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #5fffea;
+    color: #000;
+    font-size: 18px;
+    border: none;
     border-radius: 10px;
-    border: 1px solid #66fcf1;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
 }
 
-.hidden {
+button:hover {
+    opacity: 0.8;
+}
+
+/* Result box */
+.result {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #111315;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #39ffd5;
+}
+
+.result.hidden {
     display: none;
 }
 
+.result h2 {
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.result p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+/* Footer */
 footer {
     margin-top: 40px;
-    font-size: 13px;
-    opacity: 0.6;
+    font-size: 14px;
+    color: #bbbbbb;
+    opacity: 0.7;
 }
