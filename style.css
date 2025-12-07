@@ -9,14 +9,10 @@ body {
     background-color: #0f0f10;
     color: #ffffff;
     font-family: Arial, sans-serif;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* CENTRALIZA verticalmente */
-    
-    min-height: 100vh;
-    padding: 0; /* Remove espaço gigante */
+    padding: 40px 20px;
 }
 
 /* Title */
