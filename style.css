@@ -292,6 +292,32 @@ body.light .result-card {
 .result-actions {
   margin-top: 16px !important;
 }
+/* ============================
+   AJUSTAR TAMANHO E CENTRALIZAR CARDS
+   ============================ */
+
+/* Cards menores e centralizados */
+.card {
+  max-width: 800px !important;   /* diminuir largura máxima */
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 18px !important;       /* padding menor */
+  border-radius: 12px !important; /* cantos mais sutis */
+}
+
+/* Aproximar do topo (menos espaço antes do botão Dark) */
+.app-header {
+  margin-bottom: 12px !important;
+}
+
+.app-shell {
+  padding-top: 10px !important;
+}
+
+/* Espaço extra acima dos botões azuis */
+.btn-primary {
+  margin-top: 22px !important;
+}
 
 }
 
