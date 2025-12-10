@@ -17,7 +17,7 @@ body.light {
   --accent: #1d9bf0;
   --accent-hover: #0078d4;
   --text-main: #0b1020;
-  --text-muted: #586175;
+  --text-muted: #444;
 }
 
 body {
@@ -57,14 +57,20 @@ body {
   margin-top: 4px;
 }
 
-/* CARD (menor) */
+/* CARD (MENOR E RESPONSIVO) */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 14px;
   margin-top: 22px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+/* MODO CLARO – FIX TOTAL */
+body.light .card {
+  background: #ffffff !important;
+  border-color: #dcdce0 !important;
 }
 
 /* FIELDS */
@@ -79,7 +85,7 @@ body {
   display: block;
 }
 
-/* INPUTS (menores) */
+/* INPUTS NORMAIS (MENOR) */
 .field input {
   width: 100%;
   padding: 8px 10px;
@@ -88,6 +94,13 @@ body {
   background: #161d2e;
   color: var(--text-main);
   font-size: 14px;
+}
+
+/* INPUTS NO MODO CLARO – FIX */
+body.light .field input {
+  background: #f2f4f7 !important;
+  color: #0b1020 !important;
+  border-color: #cdd5e0 !important;
 }
 
 /* BUTTONS */
@@ -106,7 +119,7 @@ body {
   width: 100%;
   background: var(--accent);
   color: #000;
-  box-shadow: 0 5px 12px rgba(29, 155, 240, 0.45);
+  box-shadow: 0 5px 12px rgba(29,155,240,0.45);
   margin-top: 14px;
 }
 .btn-primary:hover {
@@ -119,7 +132,12 @@ body {
   border: 1px solid var(--border);
 }
 
-/* PRESETS (menores) */
+body.light .btn-chip {
+  background: #f2f4f7 !important;
+  color: #333 !important;
+}
+
+/* PRESETS (MENOR) */
 .preset-row {
   margin-top: 12px;
   display: flex;
@@ -142,12 +160,16 @@ body {
   color: var(--text-muted);
   font-size: 12px;
   cursor: pointer;
-  transition: 0.18s ease;
+  transition: 0.18s;
 }
 
 .btn-chip.active {
   background: var(--accent);
   color: #000;
+}
+
+body.light .btn-chip.active {
+  color: #fff !important;
 }
 
 /* RESULT CARD */
@@ -157,6 +179,11 @@ body {
   border-radius: 10px;
   border: 1px solid var(--border);
   background: #0d1320;
+}
+
+body.light .result-card {
+  background: #f6f7fa !important;
+  border-color: #d0d4db !important;
 }
 
 .result-row {
@@ -173,11 +200,6 @@ body {
 .value {
   font-size: 13px;
   font-weight: 600;
-}
-
-.value.highlight {
-  color: var(--accent);
-  font-size: 14px;
 }
 
 /* GRID */
@@ -197,6 +219,23 @@ body {
   color: var(--text-muted);
 }
 
+/* ÍCONES — AUMENTAR ESPAÇAMENTO */
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 28px; /* AQUI: aumentando espaço entre Github e X */
+  margin-bottom: 12px;
+}
+
+.footer-icons a {
+  color: var(--text-muted);
+  transition: 0.2s;
+}
+.footer-icons a:hover {
+  color: var(--accent);
+  transform: scale(1.15);
+}
+
 /* ============================
    MOBILE FIXES
    ============================ */
@@ -209,19 +248,16 @@ body {
   }
 
   .card {
-    padding: 12px !important;
+    padding: 18px !important; /* mais espaço para inputs não encostarem */
   }
 
   .field input {
     padding: 8px !important;
-    font-size: 14px !important;
+    border-radius: 8px !important;
+    margin-bottom: 6px;
   }
 
-  .result-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* 🔵 CENTRALIZAR APENAS OS BOTÕES DOS PRESETS */
+  /* Quick presets CENTRALIZADOS (apenas os botões) */
   .preset-buttons {
     width: 100%;
     display: flex;
@@ -234,5 +270,9 @@ body {
     flex: none !important;
     text-align: center !important;
     padding: 6px 14px !important;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr;
   }
 }
