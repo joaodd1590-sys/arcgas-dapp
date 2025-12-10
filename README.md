@@ -45,12 +45,6 @@ The tool is fully responsive, optimized for mobile, and designed to deliver a cl
 
 ---
 
-## 🖼️ Preview
-
-*(Opcional — posso gerar imagens reais do seu dApp e adicionar aqui.)*
-
----
-
 ## 🛠️ Tech Stack
 
 | Technology | Description |
