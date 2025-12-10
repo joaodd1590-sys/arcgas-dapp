@@ -1,23 +1,31 @@
+/* ================================================
+   GLOBAL COLOR VARIABLES
+================================================== */
+
 :root {
-  --bg: #0b0f1a;
-  --card: #111623;
-  --border: #1e2738;
-  --accent: #1d9bf0;
+  --bg: #0b0f1a;          /* dark background */
+  --card: #111623;        /* dark card background */
+  --border: #1e2738;      /* dark border outline */
+  --accent: #1d9bf0;      /* primary blue */
   --accent-hover: #4ab3ff;
-  --text-main: #ffffff;
-  --text-muted: #9ba3b5;
+  --text-main: #ffffff;   /* main text in dark mode */
+  --text-muted: #9ba3b5;  /* muted text */
   --success: #2ecc71;
 }
 
-/* LIGHT THEME VARIABLES */
+/* ================================================
+   LIGHT MODE VARIABLES (polished)
+================================================== */
+
 body.light {
-  --bg: #f4f6fb;
-  --card: #ffffff;
-  --border: #cdd5e0;
-  --accent: #1d9bf0;
+  --bg: #f7f9fc;          /* cleaner light background */
+  --card: #ffffff;        /* pure white card */
+  --border: #d5ddeb;      /* soft border */
+  --accent: #1d9bf0;      
   --accent-hover: #0078d4;
-  --text-main: #0b1020;
-  --text-muted: #444;
+
+  --text-main: #1c1f26;   /* elegant dark text */
+  --text-muted: #6c7480;  
 }
 
 body {
@@ -27,10 +35,11 @@ body {
   margin: 0;
 }
 
-/* GLOBAL */
-.hidden {
-  display: none;
-}
+/* ================================================
+   UNIVERSAL UTILITIES
+================================================== */
+
+.hidden { display: none; }
 
 .app-shell {
   max-width: 900px;
@@ -38,12 +47,15 @@ body {
   padding: 0 20px 40px;
 }
 
-/* HEADER */
+/* ================================================
+   HEADER
+================================================== */
+
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .app-header h1 {
@@ -57,23 +69,36 @@ body {
   margin-top: 4px;
 }
 
-/* CARD (compact & responsive) */
+/* ================================================
+   CARDS
+================================================== */
+
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 14px;
+  padding: 18px;
   margin-top: 22px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Light mode card corrections */
 body.light .card {
   background: #ffffff !important;
   border-color: #dcdce0 !important;
 }
 
-/* FORM FIELDS */
+/* Reduce bottom padding for last card */
+.card:last-of-type {
+  padding-bottom: 4px !important;
+}
+
+/* ================================================
+   FORM FIELDS
+================================================== */
+
 .field {
   margin-top: 14px;
 }
@@ -85,10 +110,9 @@ body.light .card {
   display: block;
 }
 
-/* Input styling */
 .field input {
   width: 100%;
-  padding: 10px 1px;
+  padding: 10px 6px !important;
   border-radius: 50px;
   border: 1px solid var(--border);
   background: #161d2e;
@@ -96,52 +120,51 @@ body.light .card {
   font-size: 14px;
 }
 
-/* Light mode input adjustments */
 body.light .field input {
-  background: #f2f4f7 !important;
-  color: #0b1020 !important;
-  border-color: #cdd5e0 !important;
+  background: #ffffff !important;
+  border-color: #d5ddeb !important;
+  color: #1c1f26 !important;
 }
 
-/* BUTTONS */
+/* ================================================
+   BUTTONS
+================================================== */
+
 .btn-primary,
 .btn-secondary {
   border: none;
   cursor: pointer;
   font-size: 14px;
   border-radius: 999px;
-  padding: 8px 14px;
+  padding: 10px 14px;
   font-weight: 600;
   transition: 0.18s ease;
 }
 
-/* Primary action button */
+/* Blue main action button */
 .btn-primary {
   width: 100%;
   background: var(--accent);
   color: #000;
   box-shadow: 0 5px 12px rgba(29,155,240,0.45);
-  margin-top: 14px;
+  margin-top: 20px;
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
 }
 
-/* Secondary button */
+/* Dark chip button */
 .btn-secondary {
   background: #1b2333;
   color: var(--text-main);
   border: 1px solid var(--border);
 }
 
-/* Light mode chip style */
-body.light .btn-chip {
-  background: #f2f4f7 !important;
-  color: #333 !important;
-}
+/* ================================================
+   PRESET BUTTONS (Transfer / Contract call / Deploy)
+================================================== */
 
-/* PRESET BUTTONS */
 .preset-row {
   margin-top: 12px;
   display: flex;
@@ -157,27 +180,41 @@ body.light .btn-chip {
 }
 
 .btn-chip {
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-muted);
   font-size: 12px;
   cursor: pointer;
-  transition: 0.18s;
+  transition: 0.18s ease;
 }
 
-/* Active preset */
+/* dark mode active */
 .btn-chip.active {
-  background: var(--accent);
-  color: #000;
+  background: var(--accent) !important;
+  color: #000 !important;
+  border-color: var(--accent) !important;
 }
 
+/* light mode normal chip */
+body.light .btn-chip {
+  background: #eef2f8 !important;
+  color: #333 !important;
+  border-color: #d5ddeb !important;
+}
+
+/* light mode active chip */
 body.light .btn-chip.active {
-  color: #fff !important;
+  background: var(--accent) !important;
+  color: #ffffff !important;
+  border-color: var(--accent) !important;
 }
 
-/* RESULT CARD */
+/* ================================================
+   RESULT CARDS
+================================================== */
+
 .result-card {
   margin-top: 14px;
   padding: 12px;
@@ -186,7 +223,6 @@ body.light .btn-chip.active {
   background: #0d1320;
 }
 
-/* Light mode result card */
 body.light .result-card {
   background: #f6f7fa !important;
   border-color: #d0d4db !important;
@@ -208,7 +244,14 @@ body.light .result-card {
   font-weight: 600;
 }
 
-/* GRID LAYOUT */
+.result-actions {
+  margin-top: 16px !important;
+}
+
+/* ================================================
+   GRID LAYOUT
+================================================== */
+
 .result-grid {
   margin-top: 14px;
   display: grid;
@@ -216,7 +259,10 @@ body.light .result-card {
   gap: 14px;
 }
 
-/* FOOTER */
+/* ================================================
+   FOOTER
+================================================== */
+
 .app-footer {
   margin-top: 40px;
   padding: 26px 0;
@@ -225,7 +271,6 @@ body.light .result-card {
   color: var(--text-muted);
 }
 
-/* Footer icons spacing */
 .footer-icons {
   display: flex;
   justify-content: center;
@@ -243,9 +288,10 @@ body.light .result-card {
   transform: scale(1.15);
 }
 
-/* ============================
-   MOBILE ADJUSTMENTS
-============================ */
+/* ================================================
+   MOBILE FIXES
+================================================== */
+
 @media (max-width: 600px) {
 
   .app-header {
@@ -255,88 +301,54 @@ body.light .result-card {
   }
 
   .card {
-    padding: 18px !important;
+    padding: 20px !important;
   }
 
   .field input {
-    padding: 10px 0px !important;
-    border-radius: 8px !important;
-    margin-bottom: 6px;
+    border-radius: 10px !important;
+    padding: 10px !important;
   }
 
-  /* Center preset buttons */
   .preset-buttons {
     width: 100%;
-    display: flex;
     justify-content: center !important;
-    gap: 8px !important;
-    flex-wrap: wrap;
   }
 
   .btn-chip {
-    flex: none !important;
-    text-align: center !important;
-    padding: 6px 14px !important;
+    padding: 8px 16px !important;
   }
 
-  /* Single-column results */
   .result-grid {
     grid-template-columns: 1fr;
-  } 
-}
-
-/* Input padding refinement */
-.field input {
-  padding: 10px 4px !important;
-}
-
-/* Desktop: reduce button width to 50% and center it */
-@media (min-width: 601px) {
-  .btn-primary {
-    width: 50% !important;
-    margin: 22px auto 0 auto !important;
-    display: block !important;
   }
 }
 
-/* Extra spacing above copy summary area */
-.result-actions {
-  margin-top: 16px !important;
+/* ================================================
+   INPUT FOCUS FIXES (remove yellow highlight)
+================================================== */
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: var(--accent) !important;
 }
 
-/* ============================
-   CENTER & RESIZE CARDS
-============================ */
-
-/* Compact centered cards */
-.card {
-  max-width: 800px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  padding: 18px !important;
-  border-radius: 12px !important;
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--card) inset !important;
+  -webkit-text-fill-color: var(--text-main) !important;
 }
 
-/* Bring header and cards closer together */
-.app-header {
-  margin-bottom: 12px !important;
+* {
+  -webkit-tap-highlight-color: transparent;
 }
 
-.app-shell {
-  padding-top: 10px !important;
-}
+/* ================================================
+   ANIMATION FOR INVALID INPUTS
+================================================== */
 
-/* Extra spacing above blue buttons */
-.btn-primary {
-  margin-top: 22px !important;
-}
-
-/* Reduce bottom padding only for the last card */
-.card:last-of-type {
-  padding-bottom: 1px !important;
-}
-
-/* Shake animation for invalid inputs */
 .shake {
   animation: shakeAnim 0.3s ease;
 }
@@ -347,27 +359,4 @@ body.light .result-card {
   50% { transform: translateX(5px); }
   75% { transform: translateX(-4px); }
   100% { transform: translateX(0); }
-  
-  /* Remove yellow/blue autofill + focus border on mobile */
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border-color: var(--border) !important;
 }
-
-/* Remove Android Chrome yellow highlight */
-input:-webkit-autofill,
-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px var(--card) inset !important;
-  -webkit-text-fill-color: var(--text-main) !important;
-  transition: background-color 9999s ease-in-out 0s;
-}
-
-/* Remove touch highlight on tap */
-* {
-  -webkit-tap-highlight-color: transparent;
-}
-
-
