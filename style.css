@@ -359,18 +359,4 @@ input:-webkit-autofill:focus {
   50% { transform: translateX(5px); }
   75% { transform: translateX(-4px); }
   100% { transform: translateX(0); }
-
-   /* ================================================
-   FIX: Light mode secondary buttons (Light + Copy summary)
-================================================== */
-
-body.light .btn-secondary {
-  background: #ffffff !important;
-  color: #1c1f26 !important;
-  border: 1px solid #d5ddeb !important;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-}
-
-body.light .btn-secondary:hover {
-  background: #eef2f8 !important;
 }
