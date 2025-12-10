@@ -368,4 +368,8 @@ input:-webkit-autofill:focus {
 /* Remove touch highlight on tap */
 * {
   -webkit-tap-highlight-color: transparent;
+  
+  /* Fix: Light/Dark toggle text should stay white in both themes */
+#themeToggle {
+  color: #fff !important;
 }
