@@ -88,7 +88,7 @@ body.light .card {
 /* INPUTS NORMAIS (MENOR) */
 .field input {
   width: 100%;
-  padding: 10px 0px;
+  padding: 10px 1px;
   border-radius: 50px;
   border: 1px solid var(--border);
   background: #161d2e;
@@ -274,5 +274,22 @@ body.light .result-card {
 
   .result-grid {
     grid-template-columns: 1fr;
+  } 
+}
+
+/* 2 — Diminuir botão azul (desktop) para 50% e centralizar */
+@media (min-width: 601px) {
+  .btn-primary {
+    width: 50% !important;
+    margin: 14px auto 0 auto !important;
+    display: block !important;
   }
 }
+
+/* 3 — Dar espaço entre Gas Price e botão "Copy summary" */
+.result-actions {
+  margin-top: 16px !important;
+}
+
+}
+
