@@ -347,4 +347,25 @@ body.light .result-card {
   50% { transform: translateX(5px); }
   75% { transform: translateX(-4px); }
   100% { transform: translateX(0); }
+  
+  /* Remove yellow/blue autofill + focus border on mobile */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: var(--border) !important;
+}
+
+/* Remove Android Chrome yellow highlight */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--card) inset !important;
+  -webkit-text-fill-color: var(--text-main) !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Remove touch highlight on tap */
+* {
+  -webkit-tap-highlight-color: transparent;
 }
