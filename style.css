@@ -1,275 +1,221 @@
+/* ===============================
+   Global Styles
+=================================*/
+
 :root {
-  --bg: #0b0f1a;
-  --card: #111623;
-  --border: #1e2738;
-  --accent: #1d9bf0;
-  --accent-hover: #4ab3ff;
-  --text-main: #ffffff;
-  --text-muted: #9ba3b5;
-  --success: #2ecc71;
+    --bg-dark: #0d1117;
+    --card-dark: #111827;
+    --input-dark: #1a2233;
+    --text-dark: #e5e7eb;
+    --accent-blue: #3b82f6;
+    --accent-blue-hover: #2563eb;
+    --border-dark: #1f2937;
+
+    --bg-light: #f4f6fa;
+    --card-light: #ffffff;
+    --input-light: #e9edf5;
+    --text-light: #1f2937;
 }
 
-/* LIGHT THEME */
-body.light {
-  --bg: #f4f6fb;
-  --card: #ffffff;
-  --border: #cdd5e0;
-  --accent: #1d9bf0;
-  --accent-hover: #0078d4;
-  --text-main: #0b1020;
-  --text-muted: #586175;
+/* Light mode override */
+.light {
+    --bg-dark: var(--bg-light);
+    --card-dark: var(--card-light);
+    --input-dark: var(--input-light);
+    --text-dark: var(--text-light);
+    --border-dark: #d0d7e2;
 }
 
 body {
-  background: var(--bg);
-  color: var(--text-main);
-  font-family: system-ui, sans-serif;
-  margin: 0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-dark);
+    transition: 0.25s ease-in-out;
 }
 
-/* GLOBAL */
-.hidden {
-  display: none;
+.container {
+    max-width: 850px;
+    margin: auto;
+    padding: 20px;
 }
 
-.app-shell {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 0 20px 40px;
+/* ===============================
+   Header
+=================================*/
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
 }
 
-/* HEADER */
-.app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+h1 {
+    font-size: 28px;
+    font-weight: 700;
 }
 
-.app-header h1 {
-  font-size: 27px;
-  letter-spacing: 0.05em;
+/* Theme toggle */
+.theme-toggle {
+    background: var(--card-dark);
+    padding: 8px 14px;
+    border-radius: 14px;
+    cursor: pointer;
+    font-weight: 500;
 }
 
-.subtitle {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin-top: 4px;
-}
+/* ===============================
+   Cards
+=================================*/
 
-/* CARDS */
 .card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 22px;
-  margin-top: 26px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    background: var(--card-dark);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid var(--border-dark);
+    margin-bottom: 25px;
 }
 
-/* FIELDS */
-.field {
-  margin-top: 18px;
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 22px;
 }
 
-.field label {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 6px;
-  display: block;
+/* ===============================
+   Inputs
+=================================*/
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    border: 1px solid var(--border-dark);
+    background: var(--input-dark);
+    color: var(--text-dark);
+    font-size: 15px;
 }
 
-.field input {
-  width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  background: #161d2e;
-  color: var(--text-main);
-  font-size: 15px;
+input::placeholder {
+    color: #9ca3af;
 }
 
-body.light .field input {
-  background: #ffffff;
-  color: #0b1020;
-  border: 1px solid #cdd5e0;
+/* ===============================
+   Quick Presets (FIXED & RESPONSIVE)
+=================================*/
+
+.quick-presets {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 10px 0 20px 0;
 }
 
-/* Remove number arrows */
-input::-webkit-inner-spin-button,
-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-}
-input[type=number] { -moz-appearance: textfield; }
-
-/* BUTTONS */
-.btn-primary,
-.btn-secondary {
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 999px;
-  padding: 11px 18px;
-  font-weight: 600;
-  transition: 0.18s ease;
+.quick-presets button {
+    background: var(--input-dark);
+    color: var(--text-dark);
+    border: 1px solid var(--border-dark);
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.25s;
 }
 
-.btn-primary {
-  width: 100%;
-  background: var(--accent);
-  color: #000;
-  box-shadow: 0 6px 14px rgba(29, 155, 240, 0.45);
-  margin-top: 16px;
-}
-.btn-primary:hover {
-  background: var(--accent-hover);
+.quick-presets button.active {
+    background: var(--accent-blue);
+    color: white;
 }
 
-.btn-secondary {
-  background: #1b2333;
-  color: var(--text-main);
-  border: 1px solid var(--border);
-}
-body.light .btn-secondary {
-  background: #e6ecff;
-  color: #0b1020;
+.quick-presets button:hover {
+    background: var(--accent-blue-hover);
+    color: white;
 }
 
-/* PRESETS */
-.preset-row {
-  margin-top: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+/* Mobile behavior */
+@media (max-width: 480px) {
+    .quick-presets button {
+        width: 100%;
+    }
 }
 
-.preset-buttons {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+/* ===============================
+   Primary Button
+=================================*/
+
+button.primary {
+    width: 100%;
+    background: var(--accent-blue);
+    color: white;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
 }
 
-.btn-chip {
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 13px;
-  cursor: pointer;
-  transition: 0.18s ease;
+button.primary:hover {
+    background: var(--accent-blue-hover);
 }
 
-.btn-chip:hover {
-  border-color: var(--accent);
-  color: var(--accent-hover);
-}
+/* ===============================
+   Results Box
+=================================*/
 
-.btn-chip.active {
-  background: var(--accent);
-  color: #000 !important;
-  border-color: var(--accent-hover);
-  transform: scale(1.05);
-}
-
-/* RESULT CARD */
 .result-card {
-  margin-top: 18px;
-  padding: 16px 14px;
-  border-radius: 14px;
-  border: 1px solid var(--border);
-  background: #0d1320;
-}
-body.light .result-card {
-  background: #f8faff;
+    background: var(--input-dark);
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid var(--border-dark);
+    margin-top: 15px;
 }
 
 .result-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
+    display: flex;
+    justify-content: space-between;
+    margin: 6px 0;
+    font-size: 15px;
 }
 
-.label {
-  color: var(--text-muted);
-  font-size: 14px;
-}
+/* ===============================
+   Footer
+=================================*/
 
-.value {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.value.highlight {
-  color: var(--accent);
-  font-size: 15px;
-}
-
-/* WALLET COMPARISON */
-.result-grid {
-  margin-top: 16px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.compare-summary {
-  margin-top: 16px;
-  font-size: 14px;
-  color: var(--text-main);
-}
-
-/* FOOTER */
-.app-footer {
-  margin-top: 40px;
-  padding: 30px 0;
-  text-align: center;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-.footer-icons {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-bottom: 12px;
-}
-
-.footer-icons a {
-  color: var(--text-muted);
-  transition: 0.2s ease;
-}
-
-.footer-icons a:hover {
-  color: var(--accent);
-  transform: scale(1.15);
-}
-
-/* RESPONSIVE */
-@media (max-width: 600px) {
-
-  .app-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  .result-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .btn-chip {
-    width: 100%;
+footer {
+    margin-top: 30px;
     text-align: center;
-  }
-
-  .card {
-    padding: 16px;
-  }
-
-  .field input {
-    padding: 10px;
     font-size: 14px;
-  }
+    padding: 20px 0;
+    opacity: 0.85;
+}
+
+footer .socials {
+    margin-bottom: 10px;
+}
+
+footer .socials img {
+    width: 26px;
+    margin: 0 8px;
+    opacity: 0.9;
+    transition: 0.2s;
+}
+
+footer .socials img:hover {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+footer small {
+    display: block;
+    margin-top: 5px;
+    font-size: 13px;
+    opacity: 0.7;
 }
