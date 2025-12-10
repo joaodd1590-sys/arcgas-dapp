@@ -318,7 +318,12 @@ body.light .result-card {
 .btn-primary {
   margin-top: 22px !important;
 }
-.card {
-  padding-bottom: 10px !important;
+/* ============================
+   AJUSTAR APENAS O ÚLTIMO CARD
+   (Wallet Gas Comparison)
+   ============================ */
+
+.card:last-of-type {
+  padding-bottom: 10px !important; /* reduz apenas no de baixo */
 }
 
