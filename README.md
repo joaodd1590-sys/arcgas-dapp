@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/joaodd1590-sys/arcgas-dapp/main/banner.png.png" width="850">
+</p>
+
 # 🚀 ARC Gas Estimator  
 Gas & cost analysis toolkit for the **Arc Testnet** · USDC-focused
 
@@ -7,7 +11,7 @@ The tool is fully responsive, optimized for mobile, and designed to deliver a cl
 
 ---
 
-## 🔥 Live Demo
+## 🔥 Live Demo  
 🔗 **https://arcgas-dapp-liart.vercel.app/**
 
 ---
@@ -41,9 +45,8 @@ The tool is fully responsive, optimized for mobile, and designed to deliver a cl
 
 ---
 
-## 🖼️ Preview
-
-*(Opcional — posso gerar imagens reais do seu dApp e adicionar aqui.)*
+## 🖼️ Preview  
+*(Se quiser, posso adicionar GIF do dApp funcionando aqui.)*
 
 ---
 
