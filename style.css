@@ -1,31 +1,23 @@
-/* ================================================
-   GLOBAL COLOR VARIABLES
-================================================== */
-
 :root {
-  --bg: #0b0f1a;          /* dark background */
-  --card: #111623;        /* dark card background */
-  --border: #1e2738;      /* dark border outline */
-  --accent: #1d9bf0;      /* primary blue */
+  --bg: #0b0f1a;
+  --card: #111623;
+  --border: #1e2738;
+  --accent: #1d9bf0;
   --accent-hover: #4ab3ff;
-  --text-main: #ffffff;   /* main text in dark mode */
-  --text-muted: #9ba3b5;  /* muted text */
+  --text-main: #ffffff;
+  --text-muted: #9ba3b5;
   --success: #2ecc71;
 }
 
-/* ================================================
-   LIGHT MODE VARIABLES (polished)
-================================================== */
-
+/* LIGHT THEME VARIABLES */
 body.light {
-  --bg: #f7f9fc;          /* cleaner light background */
-  --card: #ffffff;        /* pure white card */
-  --border: #d5ddeb;      /* soft border */
-  --accent: #1d9bf0;      
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --border: #cdd5e0;
+  --accent: #1d9bf0;
   --accent-hover: #0078d4;
-
-  --text-main: #1c1f26;   /* elegant dark text */
-  --text-muted: #6c7480;  
+  --text-main: #0b1020;
+  --text-muted: #444;
 }
 
 body {
@@ -35,11 +27,10 @@ body {
   margin: 0;
 }
 
-/* ================================================
-   UNIVERSAL UTILITIES
-================================================== */
-
-.hidden { display: none; }
+/* GLOBAL */
+.hidden {
+  display: none;
+}
 
 .app-shell {
   max-width: 900px;
@@ -47,15 +38,12 @@ body {
   padding: 0 20px 40px;
 }
 
-/* ================================================
-   HEADER
-================================================== */
-
+/* HEADER */
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .app-header h1 {
@@ -69,20 +57,14 @@ body {
   margin-top: 4px;
 }
 
-/* ================================================
-   CARDS
-================================================== */
-
+/* CARD */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 18px;
+  padding: 14px;
   margin-top: 22px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 body.light .card {
@@ -90,15 +72,7 @@ body.light .card {
   border-color: #dcdce0 !important;
 }
 
-/* Reduce bottom padding for last card */
-.card:last-of-type {
-  padding-bottom: 4px !important;
-}
-
-/* ================================================
-   FORM FIELDS
-================================================== */
-
+/* FORM FIELDS */
 .field {
   margin-top: 14px;
 }
@@ -112,7 +86,7 @@ body.light .card {
 
 .field input {
   width: 100%;
-  padding: 10px 6px !important;
+  padding: 10px 1px;
   border-radius: 50px;
   border: 1px solid var(--border);
   background: #161d2e;
@@ -121,50 +95,55 @@ body.light .card {
 }
 
 body.light .field input {
-  background: #ffffff !important;
-  border-color: #d5ddeb !important;
-  color: #1c1f26 !important;
+  background: #f2f4f7 !important;
+  color: #0b1020 !important;
+  border-color: #cdd5e0 !important;
 }
 
-/* ================================================
-   BUTTONS
-================================================== */
-
+/* BUTTONS */
 .btn-primary,
 .btn-secondary {
   border: none;
   cursor: pointer;
   font-size: 14px;
   border-radius: 999px;
-  padding: 10px 14px;
+  padding: 8px 14px;
   font-weight: 600;
   transition: 0.18s ease;
 }
 
-/* Blue main action button */
 .btn-primary {
   width: 100%;
   background: var(--accent);
   color: #000;
   box-shadow: 0 5px 12px rgba(29,155,240,0.45);
-  margin-top: 20px;
+  margin-top: 14px;
 }
 
 .btn-primary:hover {
   background: var(--accent-hover);
 }
 
-/* Dark chip button */
+/* Secondary button */
 .btn-secondary {
   background: #1b2333;
   color: var(--text-main);
   border: 1px solid var(--border);
 }
 
-/* ================================================
-   PRESET BUTTONS (Transfer / Contract call / Deploy)
-================================================== */
+/* FIX: Light mode secondary buttons (Light toggle + Copy Summary) */
+body.light .btn-secondary {
+  background: #ffffff !important;
+  color: #1c1f26 !important;
+  border: 1px solid #d5ddeb !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
 
+body.light .btn-secondary:hover {
+  background: #eef2f8 !important;
+}
+
+/* PRESET BUTTONS */
 .preset-row {
   margin-top: 12px;
   display: flex;
@@ -180,41 +159,33 @@ body.light .field input {
 }
 
 .btn-chip {
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-muted);
   font-size: 12px;
   cursor: pointer;
-  transition: 0.18s ease;
+  transition: 0.18s;
 }
 
-/* dark mode active */
-.btn-chip.active {
-  background: var(--accent) !important;
-  color: #000 !important;
-  border-color: var(--accent) !important;
-}
-
-/* light mode normal chip */
+/* FIX: Light mode chip buttons (too white before) */
 body.light .btn-chip {
-  background: #eef2f8 !important;
+  background: #e9edf3 !important;
   color: #333 !important;
-  border-color: #d5ddeb !important;
 }
 
-/* light mode active chip */
+.btn-chip.active {
+  background: var(--accent);
+  color: #000;
+}
+
 body.light .btn-chip.active {
   background: var(--accent) !important;
-  color: #ffffff !important;
-  border-color: var(--accent) !important;
+  color: #fff !important;
 }
 
-/* ================================================
-   RESULT CARDS
-================================================== */
-
+/* RESULT CARD */
 .result-card {
   margin-top: 14px;
   padding: 12px;
@@ -244,14 +215,7 @@ body.light .result-card {
   font-weight: 600;
 }
 
-.result-actions {
-  margin-top: 16px !important;
-}
-
-/* ================================================
-   GRID LAYOUT
-================================================== */
-
+/* GRID */
 .result-grid {
   margin-top: 14px;
   display: grid;
@@ -259,10 +223,7 @@ body.light .result-card {
   gap: 14px;
 }
 
-/* ================================================
-   FOOTER
-================================================== */
-
+/* FOOTER */
 .app-footer {
   margin-top: 40px;
   padding: 26px 0;
@@ -288,12 +249,8 @@ body.light .result-card {
   transform: scale(1.15);
 }
 
-/* ================================================
-   MOBILE FIXES
-================================================== */
-
+/* MOBILE */
 @media (max-width: 600px) {
-
   .app-header {
     flex-direction: column;
     align-items: flex-start;
@@ -301,21 +258,27 @@ body.light .result-card {
   }
 
   .card {
-    padding: 20px !important;
+    padding: 18px !important;
   }
 
   .field input {
-    border-radius: 10px !important;
-    padding: 10px !important;
+    padding: 10px 0px !important;
+    border-radius: 8px !important;
+    margin-bottom: 6px;
   }
 
   .preset-buttons {
     width: 100%;
+    display: flex;
     justify-content: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap;
   }
 
   .btn-chip {
-    padding: 8px 16px !important;
+    flex: none !important;
+    text-align: center !important;
+    padding: 6px 14px !important;
   }
 
   .result-grid {
@@ -323,32 +286,50 @@ body.light .result-card {
   }
 }
 
-/* ================================================
-   INPUT FOCUS FIXES (remove yellow highlight)
-================================================== */
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border-color: var(--accent) !important;
+/* Input padding refinement */
+.field input {
+  padding: 10px 4px !important;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px var(--card) inset !important;
-  -webkit-text-fill-color: var(--text-main) !important;
+/* Desktop button resize */
+@media (min-width: 601px) {
+  .btn-primary {
+    width: 50% !important;
+    margin: 22px auto 0 auto !important;
+    display: block !important;
+  }
 }
 
-* {
-  -webkit-tap-highlight-color: transparent;
+.result-actions {
+  margin-top: 16px !important;
 }
 
-/* ================================================
-   ANIMATION FOR INVALID INPUTS
-================================================== */
+/* Card layout adjustments */
+.card {
+  max-width: 800px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 18px !important;
+  border-radius: 12px !important;
+}
 
+.app-header {
+  margin-bottom: 12px !important;
+}
+
+.app-shell {
+  padding-top: 10px !important;
+}
+
+.btn-primary {
+  margin-top: 22px !important;
+}
+
+.card:last-of-type {
+  padding-bottom: 1px !important;
+}
+
+/* Shake animation */
 .shake {
   animation: shakeAnim 0.3s ease;
 }
@@ -359,4 +340,26 @@ input:-webkit-autofill:focus {
   50% { transform: translateX(5px); }
   75% { transform: translateX(-4px); }
   100% { transform: translateX(0); }
+}
+
+/* Remove focus glow */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: var(--border) !important;
+}
+
+/* Remove autofill yellow */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--card) inset !important;
+  -webkit-text-fill-color: var(--text-main) !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Remove tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
 }
