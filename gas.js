@@ -1,4 +1,7 @@
-// ===== DOM ELEMENT REFERENCES =====
+// =======================
+// DOM ELEMENT REFERENCES
+// =======================
+
 const gasUsedInput = document.getElementById("gasUsed");
 const gasPriceInput = document.getElementById("gasPrice");
 const calculateBtn = document.getElementById("calculate");
@@ -15,7 +18,7 @@ const presetDeployBtn = document.getElementById("presetDeploy");
 
 const copySummaryBtn = document.getElementById("copySummary");
 
-// Wallet comparison elements
+// Wallet comparison
 const addrAInput = document.getElementById("addrA");
 const addrBInput = document.getElementById("addrB");
 const compareBtn = document.getElementById("compare");
@@ -34,34 +37,144 @@ const compareSummaryTextEl = document.getElementById("compareSummaryText");
 
 const themeToggleBtn = document.getElementById("themeToggle");
 
-// ================== GAS ESTIMATOR ==================
+
+// =======================
+// VALIDATION HELPERS
+// =======================
+
+// ARC/EVM address = 0x + 40 hex chars
+function isValidArcAddress(addr) {
+  return /^0x[a-fA-F0-9]{40}$/.test(addr.trim());
+}
+
+// Decimal number (0–9 with optional decimal point)
+function isValidDecimalNumber(n) {
+  return /^[0-9]*([.][0-9]+)?$/.test(n.trim()) && n.trim() !== "";
+}
+
+// Add shake animation
+function shake(el) {
+  el.classList.add("shake");
+  setTimeout(() => el.classList.remove("shake"), 400);
+}
+
+// Create error message element under input
+function createErrorBox(input) {
+  const div = document.createElement("div");
+  div.style.fontSize = "12px";
+  div.style.marginTop = "4px";
+  div.style.color = "#ff7373";
+  input.insertAdjacentElement("afterend", div);
+  return div;
+}
+
+// Block paste of invalid address
+function blockInvalidAddressPaste(input) {
+  input.addEventListener("paste", e => {
+    const text = (e.clipboardData || window.clipboardData).getData("text");
+    if (!isValidArcAddress(text)) {
+      e.preventDefault();
+      shake(input);
+    }
+  });
+}
+
+// Full validation for address fields
+function setupAddressValidation(input) {
+  const errorBox = createErrorBox(input);
+  blockInvalidAddressPaste(input);
+
+  input.addEventListener("input", () => {
+    let v = input.value.trim().toLowerCase();
+    input.value = v;
+
+    if (v === "") {
+      input.style.border = "1px solid var(--border)";
+      errorBox.textContent = "";
+      return;
+    }
+
+    if (!isValidArcAddress(v)) {
+      input.style.border = "1px solid #ff4444";
+      input.style.color = "#ff7373";
+      errorBox.textContent = "Invalid ARC address";
+    } else {
+      input.style.border = "1px solid var(--border)";
+      input.style.color = "var(--text-main)";
+      errorBox.textContent = "";
+    }
+  });
+}
+
+// Full validation for numeric decimal inputs
+function setupDecimalValidation(input) {
+  const errorBox = createErrorBox(input);
+
+  input.addEventListener("input", () => {
+    const v = input.value.trim();
+
+    if (v === "") {
+      errorBox.textContent = "";
+      return;
+    }
+
+    if (!isValidDecimalNumber(v)) {
+      input.style.border = "1px solid #ff4444";
+      input.style.color = "#ff7373";
+      errorBox.textContent = "Enter a valid decimal number";
+    } else {
+      input.style.border = "1px solid var(--border)";
+      input.style.color = "var(--text-main)";
+      errorBox.textContent = "";
+    }
+  });
+}
+
+
+// =======================
+// APPLY VALIDATION
+// =======================
+
+setupAddressValidation(addrAInput);
+setupAddressValidation(addrBInput);
+
+setupDecimalValidation(gasUsedInput);
+setupDecimalValidation(gasPriceInput);
+
+
+// =======================
+// GAS CALCULATOR
+// =======================
 
 function runEstimator() {
-  const gas = Number(gasUsedInput.value);
-  const gwei = Number(gasPriceInput.value);
+  const gas = gasUsedInput.value.trim();
+  const gwei = gasPriceInput.value.trim();
 
-  // Basic validation
-  if (!gas || !gwei || gas <= 0 || gwei <= 0) {
-    alert("Please enter valid gas values.");
+  if (!isValidDecimalNumber(gas) || !isValidDecimalNumber(gwei)) {
+    shake(gasUsedInput);
+    shake(gasPriceInput);
     return;
   }
 
-  // Fee calculation (USDC ~ ETH units)
-  const feeUSDC = (gas * gwei) / 1e9;
+  const gasNum = Number(gas);
+  const gweiNum = Number(gwei);
 
-  // Update UI
+  const feeUSDC = (gasNum * gweiNum) / 1e9;
+
   feeUsdcEl.textContent = feeUSDC.toFixed(8) + " USDC";
   feeUsdEl.textContent = "$" + feeUSDC.toFixed(4);
-  feeGasUsedEl.textContent = gas.toString();
-  feeGasPriceEl.textContent = gwei + " Gwei";
+  feeGasUsedEl.textContent = gasNum;
+  feeGasPriceEl.textContent = gweiNum + " Gwei";
 
-  // Reveal result card
   resultCard.classList.remove("hidden");
 }
 
 calculateBtn.addEventListener("click", runEstimator);
 
-// ================== GAS PRESET BUTTONS ==================
+
+// =======================
+// GAS PRESET BUTTONS
+// =======================
 
 const presetButtons = [
   presetTransferBtn,
@@ -69,19 +182,16 @@ const presetButtons = [
   presetDeployBtn
 ];
 
-// Removes highlight from all preset buttons
 function clearPresetActive() {
   presetButtons.forEach(btn => btn.classList.remove("active"));
 }
 
-// Applies a preset value and highlights the chosen button
 function applyPreset(btn, value) {
   clearPresetActive();
   btn.classList.add("active");
   gasUsedInput.value = value;
 }
 
-// Preset definitions
 presetTransferBtn.addEventListener("click", () =>
   applyPreset(presetTransferBtn, 21000)
 );
@@ -92,7 +202,10 @@ presetDeployBtn.addEventListener("click", () =>
   applyPreset(presetDeployBtn, 600000)
 );
 
-// ================== COPY SUMMARY BUTTON ==================
+
+// =======================
+// COPY SUMMARY
+// =======================
 
 copySummaryBtn.addEventListener("click", () => {
   const summary = `
@@ -106,7 +219,6 @@ Gas price: ${feeGasPriceEl.textContent}
 
   navigator.clipboard.writeText(summary);
 
-  // Visual feedback
   copySummaryBtn.textContent = "Copied!";
   copySummaryBtn.classList.add("btn-copied");
 
@@ -116,7 +228,10 @@ Gas price: ${feeGasPriceEl.textContent}
   }, 900);
 });
 
-// ================== WALLET GAS COMPARISON ==================
+
+// =======================
+// WALLET COMPARISON
+// =======================
 
 async function fetchWalletGas(address) {
   const url = `https://testnet.arcscan.app/api?module=account&action=txlist&address=${address}`;
@@ -127,7 +242,6 @@ async function fetchWalletGas(address) {
   let totalGas = 0;
   let totalFee = 0;
 
-  // Aggregate gas usage and estimated cost
   txs.forEach(tx => {
     const gasUsed = Number(tx.gasUsed || 0);
     const gasPrice = Number(tx.gasPrice || 0);
@@ -143,21 +257,26 @@ async function fetchWalletGas(address) {
   };
 }
 
+
 compareBtn.addEventListener("click", async () => {
   const A = addrAInput.value.trim();
   const B = addrBInput.value.trim();
+
+  if (!isValidArcAddress(A) || !isValidArcAddress(B)) {
+    shake(addrAInput);
+    shake(addrBInput);
+    return;
+  }
 
   compareStatusEl.textContent = "Fetching wallet data...";
   compareResultCard.classList.add("hidden");
 
   try {
-    // Fetch both wallets in parallel
     const [a, b] = await Promise.all([
       fetchWalletGas(A),
       fetchWalletGas(B)
     ]);
 
-    // Update UI results
     aTxCountEl.textContent = a.txCount;
     aGasUsedEl.textContent = a.gasUsed;
     aFeeUsdcEl.textContent = a.fee.toFixed(6) + " USDC";
@@ -166,7 +285,6 @@ compareBtn.addEventListener("click", async () => {
     bGasUsedEl.textContent = b.gasUsed;
     bFeeUsdcEl.textContent = b.fee.toFixed(6) + " USDC";
 
-    // Comparison summary
     compareSummaryTextEl.textContent =
       a.fee > b.fee
         ? "Wallet A spent more gas overall."
@@ -182,7 +300,10 @@ compareBtn.addEventListener("click", async () => {
   }
 });
 
-// ================== THEME TOGGLER ==================
+
+// =======================
+// THEME TOGGLE
+// =======================
 
 function applyTheme(theme) {
   if (theme === "light") {
@@ -194,14 +315,14 @@ function applyTheme(theme) {
   }
 }
 
-// Toggle light/dark mode
 themeToggleBtn.addEventListener("click", () => {
-  const newTheme = document.body.classList.contains("light") ? "dark" : "light";
+  const newTheme =
+    document.body.classList.contains("light") ? "dark" : "light";
+
   applyTheme(newTheme);
   localStorage.setItem("arc_theme", newTheme);
 });
 
-// Initial theme load
 (function initTheme() {
   const saved = localStorage.getItem("arc_theme");
   applyTheme(saved || "dark");
