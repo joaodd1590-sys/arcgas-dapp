@@ -368,37 +368,6 @@ input:-webkit-autofill:focus {
 /* Remove touch highlight on tap */
 * {
   -webkit-tap-highlight-color: transparent;
-  
-/* Force theme toggle button text & icons white in light mode (high specificity) */
-body.light #themeToggle,
-body.light #themeToggle * {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important; /* Chrome/Safari */
-}
-
-/* If the button contains SVG icons, force their fill too */
-body.light #themeToggle svg,
-body.light #themeToggle svg * {
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
-}
-
-/* If the button uses pseudo elements for icon/text, force those as well */
-body.light #themeToggle::before,
-body.light #themeToggle::after,
-body.light #themeToggle *::before,
-body.light #themeToggle *::after {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-}
-
-/* Safety: target the exact class combo if present */
-body.light button#themeToggle.btn-secondary.small-btn,
-body.light button#themeToggle.btn-secondary.small-btn * {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
 }
 
 
