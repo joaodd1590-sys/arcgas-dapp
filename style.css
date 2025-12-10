@@ -318,6 +318,19 @@ body.light .result-card {
 .btn-primary {
   margin-top: 22px !important;
 }
+/* ============================
+   AJUSTE DO ESPAÇO NO FINAL DOS CARDS
+   ============================ */
+
+/* Remove espaço extra quando o card termina com botão */
+.card > .btn-primary:last-child {
+  margin-bottom: 0 !important;
+}
+
+.card {
+  padding-bottom: 16px !important; /* antes era maior, agora iguala */
+}
+
 
 }
 
