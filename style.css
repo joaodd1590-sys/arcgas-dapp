@@ -88,7 +88,7 @@ body.light .card {
 /* INPUTS NORMAIS (MENOR) */
 .field input {
   width: 100%;
-  padding: 8px 10px;
+  padding: 8px 0px;
   border-radius: 10px;
   border: 1px solid var(--border);
   background: #161d2e;
