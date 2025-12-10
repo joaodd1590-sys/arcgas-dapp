@@ -276,7 +276,9 @@ body.light .result-card {
     grid-template-columns: 1fr;
   } 
 }
-
+.field input {
+  padding: 10px 14px !important;
+}
 /* 2 — Diminuir botão azul (desktop) para 50% e centralizar */
 @media (min-width: 601px) {
   .btn-primary {
