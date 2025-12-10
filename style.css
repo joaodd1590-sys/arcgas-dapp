@@ -88,8 +88,8 @@ body.light .card {
 /* INPUTS NORMAIS (MENOR) */
 .field input {
   width: 100%;
-  padding: 8px 0px;
-  border-radius: 10px;
+  padding: 10px 0px;
+  border-radius: 50px;
   border: 1px solid var(--border);
   background: #161d2e;
   color: var(--text-main);
@@ -252,7 +252,7 @@ body.light .result-card {
   }
 
   .field input {
-    padding: 8px !important;
+    padding: 0px !important;
     border-radius: 8px !important;
     margin-bottom: 6px;
   }
