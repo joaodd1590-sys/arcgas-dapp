@@ -34,6 +34,64 @@ const compareSummaryTextEl = document.getElementById("compareSummaryText");
 
 const themeToggleBtn = document.getElementById("themeToggle");
 
+
+// ===== Utilities =====
+
+// Regex oficial ARC (EVM)
+function isValidArcAddress(addr) {
+  return /^0x[a-fA-F0-9]{40}$/.test(addr.trim());
+}
+
+// Faz o input tremer
+function shake(el) {
+  el.classList.add("shake");
+  setTimeout(() => el.classList.remove("shake"), 400);
+}
+
+// Bloqueia colar endereço inválido
+function blockInvalidPaste(input) {
+  input.addEventListener("paste", e => {
+    const text = (e.clipboardData || window.clipboardData).getData("text");
+    if (!isValidArcAddress(text)) {
+      e.preventDefault();
+      shake(input);
+    }
+  });
+}
+
+// Auto-lowercase + valida ao digitar
+function validateAddressInput(input) {
+  const errorDiv = document.createElement("div");
+  errorDiv.style.fontSize = "12px";
+  errorDiv.style.marginTop = "4px";
+  input.insertAdjacentElement("afterend", errorDiv);
+
+  // impedir colar inválido
+  blockInvalidPaste(input);
+
+  input.addEventListener("input", () => {
+    let value = input.value.trim().toLowerCase();
+    input.value = value;
+
+    if (value.length === 0) {
+      input.style.border = "1px solid var(--border)";
+      errorDiv.textContent = "";
+      return;
+    }
+
+    if (!isValidArcAddress(value)) {
+      input.style.border = "1px solid #ff4444";
+      input.style.color = "#ff7373";
+      errorDiv.textContent = "Invalid ARC address";
+    } else {
+      input.style.border = "1px solid var(--border)";
+      input.style.color = "var(--text-main)";
+      errorDiv.textContent = "";
+    }
+  });
+}
+
+
 // ===== Estimator =====
 
 function runEstimator() {
@@ -41,7 +99,8 @@ function runEstimator() {
   const gwei = Number(gasPriceInput.value);
 
   if (!gas || !gwei || gas <= 0 || gwei <= 0) {
-    alert("Please enter valid gas values.");
+    shake(gasUsedInput);
+    shake(gasPriceInput);
     return;
   }
 
@@ -57,8 +116,8 @@ function runEstimator() {
 
 calculateBtn.addEventListener("click", runEstimator);
 
-// ===== Presets =====
 
+// ===== Presets =====
 const presetButtons = [
   presetTransferBtn,
   presetContractBtn,
@@ -85,8 +144,8 @@ presetDeployBtn.addEventListener("click", () =>
   applyPreset(presetDeployBtn, 600000)
 );
 
-// ===== Copy Summary =====
 
+// ===== Copy Summary =====
 copySummaryBtn.addEventListener("click", () => {
   const summary = `
 ARC Gas Estimate
@@ -108,7 +167,12 @@ Gas price: ${feeGasPriceEl.textContent}
   }, 900);
 });
 
+
 // ===== Wallet Comparison =====
+
+// aplicar validação automática
+validateAddressInput(addrAInput);
+validateAddressInput(addrBInput);
 
 async function fetchWalletGas(address) {
   const url = `https://testnet.arcscan.app/api?module=account&action=txlist&address=${address}`;
@@ -137,6 +201,12 @@ async function fetchWalletGas(address) {
 compareBtn.addEventListener("click", async () => {
   const A = addrAInput.value.trim();
   const B = addrBInput.value.trim();
+
+  if (!isValidArcAddress(A) || !isValidArcAddress(B)) {
+    shake(addrAInput);
+    shake(addrBInput);
+    return;
+  }
 
   compareStatusEl.textContent = "Fetching wallet data...";
   compareResultCard.classList.add("hidden");
@@ -169,8 +239,8 @@ compareBtn.addEventListener("click", async () => {
   }
 });
 
-// ===== Theme Toggle =====
 
+// ===== Theme Toggle =====
 function applyTheme(theme) {
   if (theme === "light") {
     document.body.classList.add("light");
