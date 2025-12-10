@@ -277,7 +277,7 @@ body.light .result-card {
   } 
 }
 .field input {
-  padding: 10px 14px !important;
+  padding: 10px 7px !important;
 }
 /* 2 — Diminuir botão azul (desktop) para 50% e centralizar */
 @media (min-width: 601px) {
