@@ -1,4 +1,4 @@
-// ===== Elements =====
+// ===== DOM ELEMENT REFERENCES =====
 const gasUsedInput = document.getElementById("gasUsed");
 const gasPriceInput = document.getElementById("gasPrice");
 const calculateBtn = document.getElementById("calculate");
@@ -15,7 +15,7 @@ const presetDeployBtn = document.getElementById("presetDeploy");
 
 const copySummaryBtn = document.getElementById("copySummary");
 
-// Wallet comparison
+// Wallet comparison elements
 const addrAInput = document.getElementById("addrA");
 const addrBInput = document.getElementById("addrB");
 const compareBtn = document.getElementById("compare");
@@ -34,30 +34,34 @@ const compareSummaryTextEl = document.getElementById("compareSummaryText");
 
 const themeToggleBtn = document.getElementById("themeToggle");
 
-// ===== Estimator =====
+// ================== GAS ESTIMATOR ==================
 
 function runEstimator() {
   const gas = Number(gasUsedInput.value);
   const gwei = Number(gasPriceInput.value);
 
+  // Basic validation
   if (!gas || !gwei || gas <= 0 || gwei <= 0) {
     alert("Please enter valid gas values.");
     return;
   }
 
+  // Fee calculation (USDC ~ ETH units)
   const feeUSDC = (gas * gwei) / 1e9;
 
+  // Update UI
   feeUsdcEl.textContent = feeUSDC.toFixed(8) + " USDC";
   feeUsdEl.textContent = "$" + feeUSDC.toFixed(4);
   feeGasUsedEl.textContent = gas.toString();
   feeGasPriceEl.textContent = gwei + " Gwei";
 
+  // Reveal result card
   resultCard.classList.remove("hidden");
 }
 
 calculateBtn.addEventListener("click", runEstimator);
 
-// ===== Presets =====
+// ================== GAS PRESET BUTTONS ==================
 
 const presetButtons = [
   presetTransferBtn,
@@ -65,16 +69,19 @@ const presetButtons = [
   presetDeployBtn
 ];
 
+// Removes highlight from all preset buttons
 function clearPresetActive() {
   presetButtons.forEach(btn => btn.classList.remove("active"));
 }
 
+// Applies a preset value and highlights the chosen button
 function applyPreset(btn, value) {
   clearPresetActive();
   btn.classList.add("active");
   gasUsedInput.value = value;
 }
 
+// Preset definitions
 presetTransferBtn.addEventListener("click", () =>
   applyPreset(presetTransferBtn, 21000)
 );
@@ -85,7 +92,7 @@ presetDeployBtn.addEventListener("click", () =>
   applyPreset(presetDeployBtn, 600000)
 );
 
-// ===== Copy Summary =====
+// ================== COPY SUMMARY BUTTON ==================
 
 copySummaryBtn.addEventListener("click", () => {
   const summary = `
@@ -99,6 +106,7 @@ Gas price: ${feeGasPriceEl.textContent}
 
   navigator.clipboard.writeText(summary);
 
+  // Visual feedback
   copySummaryBtn.textContent = "Copied!";
   copySummaryBtn.classList.add("btn-copied");
 
@@ -108,7 +116,7 @@ Gas price: ${feeGasPriceEl.textContent}
   }, 900);
 });
 
-// ===== Wallet Comparison =====
+// ================== WALLET GAS COMPARISON ==================
 
 async function fetchWalletGas(address) {
   const url = `https://testnet.arcscan.app/api?module=account&action=txlist&address=${address}`;
@@ -119,6 +127,7 @@ async function fetchWalletGas(address) {
   let totalGas = 0;
   let totalFee = 0;
 
+  // Aggregate gas usage and estimated cost
   txs.forEach(tx => {
     const gasUsed = Number(tx.gasUsed || 0);
     const gasPrice = Number(tx.gasPrice || 0);
@@ -142,11 +151,13 @@ compareBtn.addEventListener("click", async () => {
   compareResultCard.classList.add("hidden");
 
   try {
+    // Fetch both wallets in parallel
     const [a, b] = await Promise.all([
       fetchWalletGas(A),
       fetchWalletGas(B)
     ]);
 
+    // Update UI results
     aTxCountEl.textContent = a.txCount;
     aGasUsedEl.textContent = a.gasUsed;
     aFeeUsdcEl.textContent = a.fee.toFixed(6) + " USDC";
@@ -155,6 +166,7 @@ compareBtn.addEventListener("click", async () => {
     bGasUsedEl.textContent = b.gasUsed;
     bFeeUsdcEl.textContent = b.fee.toFixed(6) + " USDC";
 
+    // Comparison summary
     compareSummaryTextEl.textContent =
       a.fee > b.fee
         ? "Wallet A spent more gas overall."
@@ -164,12 +176,13 @@ compareBtn.addEventListener("click", async () => {
 
     compareStatusEl.textContent = "";
     compareResultCard.classList.remove("hidden");
+
   } catch (err) {
     compareStatusEl.textContent = "Error fetching data.";
   }
 });
 
-// ===== Theme Toggle =====
+// ================== THEME TOGGLER ==================
 
 function applyTheme(theme) {
   if (theme === "light") {
@@ -181,12 +194,14 @@ function applyTheme(theme) {
   }
 }
 
+// Toggle light/dark mode
 themeToggleBtn.addEventListener("click", () => {
   const newTheme = document.body.classList.contains("light") ? "dark" : "light";
   applyTheme(newTheme);
   localStorage.setItem("arc_theme", newTheme);
 });
 
+// Initial theme load
 (function initTheme() {
   const saved = localStorage.getItem("arc_theme");
   applyTheme(saved || "dark");
