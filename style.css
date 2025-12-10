@@ -363,3 +363,14 @@ input:-webkit-autofill:focus {
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
+/* Fix: Theme toggle text unreadable on mobile (Light mode) */
+#themeToggle {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important; /* Chrome Android fix */
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  font-weight: 600 !important;
+}
+
+
