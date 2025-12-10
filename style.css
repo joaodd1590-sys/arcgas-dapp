@@ -327,10 +327,3 @@ body.light .result-card {
   margin-bottom: 0 !important;
 }
 
-.card {
-  padding-bottom: 16px !important; /* antes era maior, agora iguala */
-}
-
-
-}
-
