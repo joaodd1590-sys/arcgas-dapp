@@ -298,7 +298,7 @@ body.light .result-card {
 
 /* Cards menores e centralizados */
 .card {
-  max-width: 800px !important;   /* diminuir largura máxima */
+  max-width: 700px !important;   /* diminuir largura máxima */
   margin-left: auto !important;
   margin-right: auto !important;
   padding: 18px !important;       /* padding menor */
