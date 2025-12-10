@@ -107,7 +107,7 @@ body.light .field input {
   cursor: pointer;
   font-size: 14px;
   border-radius: 999px;
-  padding: 8px 14px;
+  padding: 10px 14px;
   font-weight: 600;
   transition: 0.18s ease;
 }
