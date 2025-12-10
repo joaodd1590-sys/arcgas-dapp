@@ -318,12 +318,20 @@ body.light .result-card {
 .btn-primary {
   margin-top: 22px !important;
 }
-/* ============================
-   AJUSTAR APENAS O ÚLTIMO CARD
-   (Wallet Gas Comparison)
-   ============================ */
-
 .card:last-of-type {
   padding-bottom: 1px !important; /* reduz apenas no de baixo */
 }
+/* animação de shake */
+.shake {
+  animation: shakeAnim 0.3s ease;
+}
+
+@keyframes shakeAnim {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
 
