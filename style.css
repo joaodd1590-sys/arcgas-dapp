@@ -9,7 +9,7 @@
   --success: #2ecc71;
 }
 
-/* LIGHT THEME */
+/* LIGHT THEME VARIABLES */
 body.light {
   --bg: #f4f6fb;
   --card: #ffffff;
@@ -17,7 +17,7 @@ body.light {
   --accent: #1d9bf0;
   --accent-hover: #0078d4;
   --text-main: #0b1020;
-  --text-muted: #586175;
+  --text-muted: #444;
 }
 
 body {
@@ -57,50 +57,51 @@ body {
   margin-top: 4px;
 }
 
-/* CARDS */
+/* CARD (compact & responsive) */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 22px;
-  margin-top: 26px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 22px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
 }
 
-/* FIELDS */
+/* Light mode card corrections */
+body.light .card {
+  background: #ffffff !important;
+  border-color: #dcdce0 !important;
+}
+
+/* FORM FIELDS */
 .field {
-  margin-top: 18px;
+  margin-top: 14px;
 }
 
 .field label {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-muted);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   display: block;
 }
 
+/* Input styling */
 .field input {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: 12px;
+  padding: 10px 1px;
+  border-radius: 50px;
   border: 1px solid var(--border);
   background: #161d2e;
   color: var(--text-main);
-  font-size: 15px;
+  font-size: 14px;
 }
 
+/* Light mode input adjustments */
 body.light .field input {
-  background: #ffffff;
-  color: #0b1020;
-  border: 1px solid #cdd5e0;
+  background: #f2f4f7 !important;
+  color: #0b1020 !important;
+  border-color: #cdd5e0 !important;
 }
-
-/* Remove number arrows */
-input::-webkit-inner-spin-button,
-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-}
-input[type=number] { -moz-appearance: textfield; }
 
 /* BUTTONS */
 .btn-primary,
@@ -109,38 +110,43 @@ input[type=number] { -moz-appearance: textfield; }
   cursor: pointer;
   font-size: 14px;
   border-radius: 999px;
-  padding: 11px 18px;
+  padding: 8px 14px;
   font-weight: 600;
   transition: 0.18s ease;
 }
 
+/* Primary action button */
 .btn-primary {
   width: 100%;
   background: var(--accent);
   color: #000;
-  box-shadow: 0 6px 14px rgba(29, 155, 240, 0.45);
-  margin-top: 16px;
+  box-shadow: 0 5px 12px rgba(29,155,240,0.45);
+  margin-top: 14px;
 }
+
 .btn-primary:hover {
   background: var(--accent-hover);
 }
 
+/* Secondary button */
 .btn-secondary {
   background: #1b2333;
   color: var(--text-main);
   border: 1px solid var(--border);
 }
-body.light .btn-secondary {
-  background: #e6ecff;
-  color: #0b1020;
+
+/* Light mode chip style */
+body.light .btn-chip {
+  background: #f2f4f7 !important;
+  color: #333 !important;
 }
 
-/* PRESETS */
+/* PRESET BUTTONS */
 .preset-row {
-  margin-top: 16px;
+  margin-top: 12px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -151,94 +157,85 @@ body.light .btn-secondary {
 }
 
 .btn-chip {
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-muted);
-  font-size: 13px;
+  font-size: 12px;
   cursor: pointer;
-  transition: 0.18s ease;
+  transition: 0.18s;
 }
 
-.btn-chip:hover {
-  border-color: var(--accent);
-  color: var(--accent-hover);
-}
-
+/* Active preset */
 .btn-chip.active {
   background: var(--accent);
-  color: #000 !important;
-  border-color: var(--accent-hover);
-  transform: scale(1.05);
+  color: #000;
+}
+
+body.light .btn-chip.active {
+  color: #fff !important;
 }
 
 /* RESULT CARD */
 .result-card {
-  margin-top: 18px;
-  padding: 16px 14px;
-  border-radius: 14px;
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: #0d1320;
 }
+
+/* Light mode result card */
 body.light .result-card {
-  background: #f8faff;
+  background: #f6f7fa !important;
+  border-color: #d0d4db !important;
 }
 
 .result-row {
   display: flex;
   justify-content: space-between;
-  padding: 6px 0;
+  padding: 4px 0;
 }
 
 .label {
   color: var(--text-muted);
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .value {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
 }
 
-.value.highlight {
-  color: var(--accent);
-  font-size: 15px;
-}
-
-/* WALLET COMPARISON */
+/* GRID LAYOUT */
 .result-grid {
-  margin-top: 16px;
+  margin-top: 14px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.compare-summary {
-  margin-top: 16px;
-  font-size: 14px;
-  color: var(--text-main);
+  gap: 14px;
 }
 
 /* FOOTER */
 .app-footer {
   margin-top: 40px;
-  padding: 30px 0;
+  padding: 26px 0;
   text-align: center;
   font-size: 13px;
   color: var(--text-muted);
 }
 
+/* Footer icons spacing */
 .footer-icons {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 28px;
   margin-bottom: 12px;
 }
 
 .footer-icons a {
   color: var(--text-muted);
-  transition: 0.2s ease;
+  transition: 0.2s;
 }
 
 .footer-icons a:hover {
@@ -246,30 +243,108 @@ body.light .result-card {
   transform: scale(1.15);
 }
 
-/* RESPONSIVE */
+/* ============================
+   MOBILE ADJUSTMENTS
+============================ */
 @media (max-width: 600px) {
 
   .app-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
-  }
-
-  .result-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .btn-chip {
-    width: 100%;
-    text-align: center;
+    gap: 8px;
   }
 
   .card {
-    padding: 16px;
+    padding: 18px !important;
   }
 
   .field input {
-    padding: 10px;
-    font-size: 14px;
+    padding: 10px 0px !important;
+    border-radius: 8px !important;
+    margin-bottom: 6px;
   }
+
+  /* Center preset buttons */
+  .preset-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center !important;
+    gap: 8px !important;
+    flex-wrap: wrap;
+  }
+
+  .btn-chip {
+    flex: none !important;
+    text-align: center !important;
+    padding: 6px 14px !important;
+  }
+
+  /* Single-column results */
+  .result-grid {
+    grid-template-columns: 1fr;
+  } 
+}
+
+/* Input padding refinement */
+.field input {
+  padding: 10px 4px !important;
+}
+
+/* Desktop: reduce button width to 50% and center it */
+@media (min-width: 601px) {
+  .btn-primary {
+    width: 50% !important;
+    margin: 22px auto 0 auto !important;
+    display: block !important;
+  }
+}
+
+/* Extra spacing above copy summary area */
+.result-actions {
+  margin-top: 16px !important;
+}
+
+/* ============================
+   CENTER & RESIZE CARDS
+============================ */
+
+/* Compact centered cards */
+.card {
+  max-width: 800px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 18px !important;
+  border-radius: 12px !important;
+}
+
+/* Bring header and cards closer together */
+.app-header {
+  margin-bottom: 12px !important;
+}
+
+.app-shell {
+  padding-top: 10px !important;
+}
+
+/* Extra spacing above blue buttons */
+.btn-primary {
+  margin-top: 22px !important;
+}
+
+/* Reduce bottom padding only for the last card */
+.card:last-of-type {
+  padding-bottom: 1px !important;
+}
+
+/* Shake animation for invalid inputs */
+.shake {
+  animation: shakeAnim 0.3s ease;
+}
+
+@keyframes shakeAnim {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
 }
