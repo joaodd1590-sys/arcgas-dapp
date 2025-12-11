@@ -1,5 +1,5 @@
 /* ============================================
-   THEME VARIABLES
+   THEME VARIABLES (dark-only)
 ============================================ */
 :root {
   --bg: #0b0f1a;
@@ -12,17 +12,7 @@
   --success: #2ecc71;
 }
 
-/* LIGHT THEME */
-body.light {
-  --bg: #f4f6fb;
-  --card: #ffffff;
-  --border: #cdd5e0;
-  --accent: #1d9bf0;
-  --accent-hover: #0078d4;
-  --text-main: #0b1020;
-  --text-muted: #444;
-}
-
+/* GLOBAL */
 body {
   background: var(--bg);
   color: var(--text-main);
@@ -30,7 +20,6 @@ body {
   margin: 0;
 }
 
-/* GLOBAL */
 .hidden { display: none; }
 
 .app-shell {
@@ -39,30 +28,27 @@ body {
   padding: 0 20px 40px;
 }
 
-/* ============================================
-   HEADER
-============================================ */
+/* HEADER - centered title + subtitle */
 .app-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* centered horizontally */
   align-items: center;
+  text-align: center; /* center title + subtitle text */
   margin-bottom: 24px;
+  gap: 8px;
 }
-
 .app-header h1 {
   font-size: 27px;
+  margin: 0;
   letter-spacing: 0.05em;
 }
-
 .subtitle {
   color: var(--text-muted);
   font-size: 14px;
   margin-top: 4px;
 }
 
-/* ============================================
-   CARD
-============================================ */
+/* CARD */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -72,60 +58,30 @@ body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
 }
 
-body.light .card {
-  background: #ffffff !important;
-  border-color: #dcdce0 !important;
-}
-
-/* ============================================
-   FORM FIELDS
-============================================ */
+/* FORM FIELDS */
 .field { margin-top: 14px; }
-
 .field label {
   font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 4px;
   display: block;
 }
-
 .field input {
   width: 100%;
-  padding: 10px 12px;
-  border-radius: 50px;
+  padding: 14px 14px;
+  border-radius: 12px;
   border: 1px solid var(--border);
   background: #161d2e;
   color: var(--text-main);
-  font-size: 14px;
+  font-size: 16px;
 }
 
-body.light .field input {
-  background: #f2f4f7 !important;
-  color: #0b1020 !important;
-  border-color: #cdd5e0 !important;
-}
-
-/* Focus fix */
-input:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border-color: var(--accent) !important;
-}
-
-/* Autofill fix */
-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px var(--card) inset !important;
-  -webkit-text-fill-color: var(--text-main) !important;
-}
-
-/* ============================================
-   BUTTONS
-============================================ */
+/* BUTTONS */
 .btn-primary,
 .btn-secondary {
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
   border-radius: 999px;
   padding: 12px 14px;
   font-weight: 600;
@@ -139,104 +95,47 @@ input:-webkit-autofill {
   margin-top: 18px;
   box-shadow: 0 5px 12px rgba(29,155,240,0.45);
 }
+.btn-primary:hover { background: var(--accent-hover); }
 
-.btn-primary:hover {
-  background: var(--accent-hover);
-}
-
-/* Secondary */
 .btn-secondary {
   background: #1b2333;
   color: var(--text-main);
   border: 1px solid var(--border);
 }
 
-body.light .btn-secondary {
-  background: #ffffff !important;
-  color: #1c1f26 !important;
-  border-color: #d5ddeb !important;
-}
+/* PRESET */
+.preset-buttons { display:flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.btn-chip { padding: 10px 16px; border-radius: 999px; border:1px solid var(--border); background:transparent; color:var(--text-muted); font-size:13px; }
 
-/* ============================================
-   PRESET BUTTONS
-============================================ */
-.preset-buttons {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
+/* RESULT */
+.result-card { margin-top: 14px; padding: 16px; border-radius: 12px; background: #0d1320; border:1px solid var(--border); }
+.result-row { display:flex; justify-content:space-between; padding:4px 0; }
+.result-grid { margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 
-.btn-chip {
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-muted);
-  font-size: 12px;
-  cursor: pointer;
-}
+/* FOOTER */
+.app-footer { margin-top:40px; padding:26px 0; text-align:center; font-size:13px; color:var(--text-muted); }
 
-.btn-chip.active {
-  background: var(--accent);
-  color: #000;
+/* SHAKES + FOCUS */
+.shake { animation: shakeAnim 0.3s ease; }
+@keyframes shakeAnim {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
 }
+input:focus { outline:none !important; box-shadow:none !important; border-color:var(--accent) !important; }
 
-body.light .btn-chip {
-  background: #e9edf3 !important;
-  color: #333 !important;
-}
-
-/* ============================================
-   RESULT CARD
-============================================ */
-.result-card {
-  margin-top: 14px;
-  padding: 16px;
-  border-radius: 12px;
-  background: #0d1320;
-  border: 1px solid var(--border);
-}
-
-body.light .result-card {
-  background: #f6f7fa !important;
-}
-
-.result-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0;
-}
-
-/* ============================================
-   DESKTOP ONLY
-============================================ */
-@media (min-width: 601px) {
-  .btn-primary {
-    width: 50% !important;
-    margin: 22px auto 0 auto !important;
-    display: block !important;
-  }
-}
-
-/* ============================================
-   MOBILE (FINAL + LIMPO)
-============================================ */
+/* MOBILE (single block) */
 @media (max-width: 600px) {
-
-  /* Header */
   .app-header {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    gap: 6px;
+    align-items: center;
   }
 
-  /* Card */
-  .card {
-    padding: 22px !important;
-    border-radius: 20px !important;
-  }
+  .card { padding: 20px !important; border-radius: 18px !important; }
 
-  /* Inputs */
   .field input {
     padding: 14px 14px !important;
     font-size: 16px !important;
@@ -244,31 +143,16 @@ body.light .result-card {
     margin-bottom: 12px !important;
   }
 
-  /* Presets */
-  .preset-buttons {
-    width: 100%;
-    justify-content: center !important;
-    gap: 14px !important;
-  }
+  .preset-buttons { justify-content:center; gap:14px !important; }
+  .btn-chip { padding:10px 18px !important; font-size:15px !important; border-radius:20px !important; }
 
-  .btn-chip {
-    padding: 10px 18px !important;
-    font-size: 15px !important;
-    border-radius: 20px !important;
-    text-align: center !important;
-  }
-
-  /* Primary button */
   .btn-primary {
     width: 100% !important;
     padding: 16px 0 !important;
     font-size: 17px !important;
     border-radius: 22px !important;
-    margin-top: 24px !important;
+    margin-top: 20px !important;
   }
 
-  /* Grid */
-  .result-grid {
-    grid-template-columns: 1fr !important;
-  }
+  .result-grid { grid-template-columns: 1fr !important; }
 }
