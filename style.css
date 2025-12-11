@@ -404,6 +404,60 @@ input:-webkit-autofill:focus {
     padding: 22px !important;
     border-radius: 20px !important;
   }
+  /* --- REMOVE CONFLITOS --- */
+/* Isso aqui estava quebrando tudo. Deve ser removido ou sobrescrito. */
+.field input {
+  padding: 10px 4px; /* sem !important */
+}
+
+/* --- SINGLE MOBILE LAYOUT FIX (100% FUNCIONAL) --- */
+@media (max-width: 600px) {
+
+  /* Inputs confortáveis e alinhados */
+  .field input {
+    padding: 14px 14px !important;
+    border-radius: 12px !important;
+    font-size: 16px !important;
+    margin-bottom: 10px !important;
+  }
+
+  /* Card mobile com mais espaçamento */
+  .card {
+    padding: 22px !important;
+    border-radius: 20px !important;
+  }
+
+  /* Preset buttons organizados e maiores */
+  .preset-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center !important;
+    gap: 14px !important;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .btn-chip {
+    flex: none !important;
+    padding: 10px 18px !important;
+    font-size: 15px !important;
+    border-radius: 20px !important;
+    text-align: center !important;
+  }
+
+  /* Botão azul maior no mobile */
+  .btn-primary {
+    width: 100% !important;
+    padding: 16px 0 !important;
+    font-size: 17px !important;
+    border-radius: 22px !important;
+    margin-top: 24px !important;
+  }
+
+  /* Grid vira 1 coluna */
+  .result-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 
