@@ -1,34 +1,33 @@
-<!doctype html>
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ARC Gas Estimator</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <div class="app-shell">
 
-    <!-- HEADER: centered title + subtitle -->
-    <header class="app-header" role="banner" style="text-align:center;">
-      <div>
-        <h1>ARC Gas Estimator</h1>
-        <div class="subtitle">Estimate gas & compare wallets on the ARC network</div>
-      </div>
+    <!-- HEADER - Centralizado -->
+    <header class="app-header">
+      <h1>ARC Gas Estimator</h1>
+      <div class="subtitle">Estimate gas & compare wallets on the ARC network</div>
     </header>
 
-    <!-- ESTIMATOR CARD -->
-    <section class="card" aria-labelledby="estimator-heading">
-      <h2 id="estimator-heading" style="font-size:16px; margin:0 0 8px 0;">Gas Cost Estimator</h2>
+    <!-- GAS COST ESTIMATOR CARD -->
+    <div class="card">
+      <h2>Gas Cost Estimator</h2>
 
       <div class="field">
-        <label for="gasUsed">Gas used</label>
-        <input id="gasUsed" inputmode="decimal" placeholder="e.g. 21000" />
+        <label>Gas used</label>
+        <input id="gasUsed" placeholder="Ex: 21000" />
       </div>
 
       <div class="field">
-        <label for="gasPrice">Gas price (Gwei)</label>
-        <input id="gasPrice" inputmode="decimal" placeholder="e.g. 1.0" />
+        <label>Gas price (Gwei)</label>
+        <input id="gasPrice" placeholder="e.g 1.0" />
       </div>
 
       <div class="preset-row">
@@ -39,67 +38,99 @@
         </div>
       </div>
 
-      <div class="result-actions">
-        <button id="calculate" class="btn-primary">Estimate cost</button>
-      </div>
+      <button id="calculate" class="btn-primary">Estimate cost</button>
 
-      <div id="result" class="result-card hidden" aria-live="polite" style="margin-top:14px;">
-        <div class="result-row"><div class="label">Fee (USDC)</div><div id="feeUsdc" class="value">—</div></div>
-        <div class="result-row"><div class="label">Approx USD</div><div id="feeUsd" class="value">—</div></div>
-        <div class="result-row"><div class="label">Gas used</div><div id="feeGasUsed" class="value">—</div></div>
-        <div class="result-row"><div class="label">Gas price</div><div id="feeGasPrice" class="value">—</div></div>
-        <div style="margin-top:12px;">
-          <button id="copySummary" class="btn-secondary">Copy summary</button>
+      <!-- RESULT -->
+      <div id="result" class="result-card hidden">
+        <h3>Estimation Result</h3>
+
+        <div class="result-row">
+          <div class="label">Estimated Fee</div>
+          <div class="value" id="feeUsdc">0 USDC</div>
         </div>
+
+        <div class="result-row">
+          <div class="label">Approx. USD (1 USDC ≈ $1)</div>
+          <div class="value" id="feeUsd">$0.00</div>
+        </div>
+
+        <div class="result-row">
+          <div class="label">Gas Used</div>
+          <div class="value" id="feeGasUsed">0</div>
+        </div>
+
+        <div class="result-row">
+          <div class="label">Gas Price</div>
+          <div class="value" id="feeGasPrice">0 Gwei</div>
+        </div>
+
+        <button id="copySummary" class="btn-secondary">Copy summary</button>
       </div>
-    </section>
+    </div>
 
     <!-- WALLET COMPARISON CARD -->
-    <section class="card" aria-labelledby="compare-heading">
-      <h2 id="compare-heading" style="font-size:16px; margin:0 0 8px 0;">Compare wallets</h2>
+    <div class="card">
+      <h2>Wallet Gas Comparison</h2>
+
+      <p class="subtitle">Compare total gas usage between two wallets on Arc Testnet.</p>
 
       <div class="field">
-        <label for="addrA">Wallet A</label>
-        <input id="addrA" placeholder="0x..." autocomplete="off" />
+        <label>Wallet A</label>
+        <input id="addrA" placeholder="0x..." />
       </div>
 
       <div class="field">
-        <label for="addrB">Wallet B</label>
-        <input id="addrB" placeholder="0x..." autocomplete="off" />
+        <label>Wallet B</label>
+        <input id="addrB" placeholder="0x..." />
       </div>
 
-      <div style="margin-top:10px;">
-        <button id="compare" class="btn-primary">Compare wallets</button>
-        <div id="compareStatus" style="margin-top:8px;color:var(--text-muted);font-size:13px;"></div>
-      </div>
+      <button id="compare" class="btn-primary">Compare wallets</button>
 
-      <div id="compareResult" class="result-card hidden" style="margin-top:14px;">
-        <div class="result-grid">
-          <div>
-            <div class="result-row"><div class="label">Tx count</div><div id="aTxCount" class="value">—</div></div>
-            <div class="result-row"><div class="label">Gas used</div><div id="aGasUsed" class="value">—</div></div>
-            <div class="result-row"><div class="label">Fee</div><div id="aFeeUsdc" class="value">—</div></div>
-          </div>
-          <div>
-            <div class="result-row"><div class="label">Tx count</div><div id="bTxCount" class="value">—</div></div>
-            <div class="result-row"><div class="label">Gas used</div><div id="bGasUsed" class="value">—</div></div>
-            <div class="result-row"><div class="label">Fee</div><div id="bFeeUsdc" class="value">—</div></div>
-          </div>
+      <div id="compareStatus" class="subtitle"></div>
+
+      <div id="compareResult" class="result-card hidden">
+
+        <div class="result-row">
+          <div class="label">Wallet A - Tx Count</div>
+          <div class="value" id="aTxCount">0</div>
         </div>
 
-        <div style="margin-top:12px;">
-          <div id="compareSummaryText" style="font-weight:600;color:var(--text-muted);font-size:13px;">—</div>
+        <div class="result-row">
+          <div class="label">Wallet A - Total Gas Used</div>
+          <div class="value" id="aGasUsed">0</div>
         </div>
+
+        <div class="result-row">
+          <div class="label">Wallet A - Total Fee</div>
+          <div class="value" id="aFeeUsdc">0 USDC</div>
+        </div>
+
+        <hr />
+
+        <div class="result-row">
+          <div class="label">Wallet B - Tx Count</div>
+          <div class="value" id="bTxCount">0</div>
+        </div>
+
+        <div class="result-row">
+          <div class="label">Wallet B - Total Gas Used</div>
+          <div class="value" id="bGasUsed">0</div>
+        </div>
+
+        <div class="result-row">
+          <div class="label">Wallet B - Total Fee</div>
+          <div class="value" id="bFeeUsdc">0 USDC</div>
+        </div>
+
+        <p id="compareSummaryText" class="subtitle"></p>
       </div>
-    </section>
+    </div>
 
     <!-- FOOTER -->
     <footer class="app-footer">
-      <div class="footer-icons">
-        <!-- icons can be added here -->
-      </div>
-      <div>Made for ARC</div>
+      <p>Made for ARC</p>
     </footer>
+
   </div>
 
   <script src="gas.js"></script>
