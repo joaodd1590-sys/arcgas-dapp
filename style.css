@@ -1,6 +1,6 @@
-/* ==========================
-   BASE COLORS (Dark Only)
-========================== */
+/* =========================================
+   BASE THEME (APENAS DARK MODE)
+========================================= */
 :root {
   --bg: #0b0f1a;
   --card: #111623;
@@ -18,47 +18,52 @@ body {
   margin: 0;
 }
 
-/* ==========================
+/* =========================================
    GLOBAL
-========================== */
-.hidden { display: none; }
-
+========================================= */
 .app-shell {
   max-width: 900px;
   margin: 20px auto;
   padding: 0 20px 40px;
-  text-align: center;
+  text-align: center; /* CENTRALIZA TITULO E SUBTITULO */
 }
 
-/* Header */
+.hidden {
+  display: none;
+}
+
+/* =========================================
+   HEADER
+========================================= */
 .app-header {
-  text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 25px;
 }
 
 .app-header h1 {
-  font-size: 32px;
-  letter-spacing: 0.06em;
+  font-size: 30px;
   margin-bottom: 6px;
 }
 
 .subtitle {
-  color: var(--text-muted);
   font-size: 14px;
+  color: var(--text-muted);
 }
 
-/* Cards */
+/* =========================================
+   CARDS
+========================================= */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 20px;
-  margin-top: 26px;
-  text-align: left;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  padding: 18px;
+  margin-top: 22px;
+  text-align: left; /* conteúdo interno alinhado */
 }
 
-/* Form fields */
+/* =========================================
+   INPUTS
+========================================= */
 .field {
   margin-top: 14px;
 }
@@ -66,31 +71,33 @@ body {
 .field label {
   font-size: 13px;
   color: var(--text-muted);
-  display: block;
   margin-bottom: 4px;
+  display: block;
 }
 
 .field input {
   width: 100%;
-  padding: 12px;
-  border-radius: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: #161d2e;
   color: var(--text-main);
   font-size: 15px;
 }
 
-/* Buttons */
+/* =========================================
+   BUTTONS
+========================================= */
 .btn-primary {
   width: 100%;
-  padding: 14px;
   background: var(--accent);
+  color: #000;
+  font-weight: 600;
+  padding: 14px 0;
   border-radius: 18px;
   border: none;
-  margin-top: 18px;
   cursor: pointer;
-  font-weight: 600;
-  color: #000;
+  margin-top: 20px;
   box-shadow: 0 5px 12px rgba(29,155,240,0.45);
 }
 
@@ -98,34 +105,14 @@ body {
   background: var(--accent-hover);
 }
 
-.btn-secondary {
-  padding: 8px 14px;
-  border-radius: 18px;
-  border: 1px solid var(--border);
-  background: #1b2333;
-  color: var(--text-main);
-  cursor: pointer;
-}
-
-/* Presets */
-.preset-row {
-  margin-top: 12px;
-}
-
-.preset-buttons {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-
 .btn-chip {
-  padding: 6px 16px;
-  border-radius: 20px;
-  background: transparent;
+  padding: 6px 14px;
+  border-radius: 999px;
   border: 1px solid var(--border);
-  cursor:pointer;
-  color:var(--text-muted);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
 }
 
 .btn-chip.active {
@@ -133,80 +120,84 @@ body {
   color: #000;
 }
 
-/* Results */
+/* Presets container */
+.preset-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* =========================================
+   RESULT CARD
+========================================= */
 .result-card {
-  margin-top: 18px;
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid var(--border);
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 10px;
   background: #0d1320;
+  border: 1px solid var(--border);
 }
 
 .result-row {
-  display:flex;
-  justify-content:space-between;
-  padding:4px 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
 }
 
 .label {
-  color:var(--text-muted);
-  font-size:13px;
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
 .value {
-  font-size:14px;
-  font-weight:600;
+  font-weight: 600;
+  font-size: 13px;
 }
 
-/* Grid */
-.result-grid {
-  margin-top:12px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-
-/* Footer */
+/* =========================================
+   FOOTER
+========================================= */
 .app-footer {
-  margin-top:50px;
-  text-align:center;
-  color:var(--text-muted);
-  font-size:13px;
+  margin-top: 40px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
 }
 
-.footer-icons {
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  margin-bottom:12px;
-}
+/* =========================================
+   MOBILE FIX (100% ESTÁVEL)
+========================================= */
+@media (max-width: 600px) {
 
-/* ==========================
-   MOBILE FIX
-========================== */
-@media (max-width:600px) {
+  .app-shell {
+    padding-top: 10px;
+  }
 
   .card {
-    padding:22px;
-    border-radius:20px;
+    padding: 20px;
   }
 
   .field input {
-    padding:14px;
-    font-size:16px;
+    font-size: 16px;
+    padding: 14px;
   }
 
   .btn-primary {
-    padding:16px;
-    font-size:17px;
-    border-radius:22px;
+    font-size: 17px;
+    padding: 16px;
   }
 
   .preset-buttons {
-    gap:14px;
+    justify-content: center;
   }
 
-  .result-grid {
-    grid-template-columns:1fr;
+  .btn-chip {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  .result-row {
+    font-size: 14px;
   }
 }
