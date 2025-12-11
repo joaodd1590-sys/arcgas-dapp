@@ -103,7 +103,7 @@ body.light .field input {
   cursor: pointer; 
   font-size: 14px; 
   border-radius: 999px; 
-  padding: 10px 14px; 
+  padding: 14px 14px; 
   font-weight: 600; 
   transition: 0.18s ease; 
 }
@@ -280,7 +280,7 @@ body.light .result-card {
 @media (min-width: 601px) { 
   .btn-primary { 
     width: 50% !important; 
-    margin: 22px auto 0 auto !important; 
+    margin: 25px auto 0 auto !important; 
     display: block !important; 
   } 
 }
@@ -300,7 +300,7 @@ body.light .result-card {
 
 .app-shell { padding-top: 10px !important; }
 
-.btn-primary { margin-top: 22px !important; }
+.btn-primary { margin-top: 25px !important; }
 
 .card:last-of-type { padding-bottom: 1px !important; }
 
