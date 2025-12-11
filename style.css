@@ -289,7 +289,7 @@ body.light .result-card {
 
 /* Card layout adjustments */ 
 .card { 
-  max-width: 750px !important; 
+  max-width: 770px !important; 
   margin-left: auto !important; 
   margin-right: auto !important; 
   padding: 18px !important; 
