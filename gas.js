@@ -1,7 +1,6 @@
 // =======================
 // DOM ELEMENT REFERENCES
 // =======================
-
 const gasUsedInput = document.getElementById("gasUsed");
 const gasPriceInput = document.getElementById("gasPrice");
 const calculateBtn = document.getElementById("calculate");
@@ -18,7 +17,6 @@ const presetDeployBtn = document.getElementById("presetDeploy");
 
 const copySummaryBtn = document.getElementById("copySummary");
 
-// Wallet comparison
 const addrAInput = document.getElementById("addrA");
 const addrBInput = document.getElementById("addrB");
 const compareBtn = document.getElementById("compare");
@@ -34,9 +32,6 @@ const bGasUsedEl = document.getElementById("bGasUsed");
 const bFeeUsdcEl = document.getElementById("bFeeUsdc");
 
 const compareSummaryTextEl = document.getElementById("compareSummaryText");
-
-const themeToggleBtn = document.getElementById("themeToggle");
-
 
 // =======================
 // VALIDATION HELPERS
@@ -54,6 +49,7 @@ function isValidDecimalNumber(n) {
 
 // Add shake animation
 function shake(el) {
+  if (!el) return;
   el.classList.add("shake");
   setTimeout(() => el.classList.remove("shake"), 400);
 }
@@ -110,6 +106,21 @@ function setupAddressValidation(input) {
 function setupDecimalValidation(input) {
   const errorBox = createErrorBox(input);
 
+  // prevent invalid characters while typing (allow numbers and dot)
+  input.addEventListener("keydown", (e) => {
+    const allowedKeys = [
+      "Backspace","Tab","ArrowLeft","ArrowRight","Delete","Home","End"
+    ];
+    if (allowedKeys.includes(e.key)) return;
+    if (e.key === "." && input.value.includes(".")) {
+      e.preventDefault();
+      return;
+    }
+    if (!/^[0-9.]$/.test(e.key)) {
+      e.preventDefault();
+    }
+  });
+
   input.addEventListener("input", () => {
     const v = input.value.trim();
 
@@ -130,22 +141,18 @@ function setupDecimalValidation(input) {
   });
 }
 
-
 // =======================
 // APPLY VALIDATION
 // =======================
-
 setupAddressValidation(addrAInput);
 setupAddressValidation(addrBInput);
 
 setupDecimalValidation(gasUsedInput);
 setupDecimalValidation(gasPriceInput);
 
-
 // =======================
 // GAS CALCULATOR
 // =======================
-
 function runEstimator() {
   const gas = gasUsedInput.value.trim();
   const gwei = gasPriceInput.value.trim();
@@ -171,11 +178,9 @@ function runEstimator() {
 
 calculateBtn.addEventListener("click", runEstimator);
 
-
 // =======================
 // GAS PRESET BUTTONS
 // =======================
-
 const presetButtons = [
   presetTransferBtn,
   presetContractBtn,
@@ -190,6 +195,7 @@ function applyPreset(btn, value) {
   clearPresetActive();
   btn.classList.add("active");
   gasUsedInput.value = value;
+  gasUsedInput.dispatchEvent(new Event('input'));
 }
 
 presetTransferBtn.addEventListener("click", () =>
@@ -202,11 +208,9 @@ presetDeployBtn.addEventListener("click", () =>
   applyPreset(presetDeployBtn, 600000)
 );
 
-
 // =======================
 // COPY SUMMARY
 // =======================
-
 copySummaryBtn.addEventListener("click", () => {
   const summary = `
 ARC Gas Estimate
@@ -217,7 +221,7 @@ Gas used: ${feeGasUsedEl.textContent}
 Gas price: ${feeGasPriceEl.textContent}
 `.trim();
 
-  navigator.clipboard.writeText(summary);
+  navigator.clipboard.writeText(summary).catch(()=>{ /* ignore */ });
 
   copySummaryBtn.textContent = "Copied!";
   copySummaryBtn.classList.add("btn-copied");
@@ -228,35 +232,32 @@ Gas price: ${feeGasPriceEl.textContent}
   }, 900);
 });
 
-
 // =======================
 // WALLET COMPARISON
 // =======================
-
 async function fetchWalletGas(address) {
   const url = `https://testnet.arcscan.app/api?module=account&action=txlist&address=${address}`;
-  const res = await fetch(url);
-  const data = await res.json();
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
 
-  const txs = data.result || [];
-  let totalGas = 0;
-  let totalFee = 0;
+    const txs = data.result || [];
+    let totalGas = 0;
+    let totalFee = 0;
 
-  txs.forEach(tx => {
-    const gasUsed = Number(tx.gasUsed || 0);
-    const gasPrice = Number(tx.gasPrice || 0);
+    txs.forEach(tx => {
+      const gasUsed = Number(tx.gasUsed || 0);
+      const gasPrice = Number(tx.gasPrice || 0);
 
-    totalGas += gasUsed;
-    totalFee += (gasUsed * gasPrice) / 1e18;
-  });
+      totalGas += gasUsed;
+      totalFee += (gasUsed * gasPrice) / 1e18;
+    });
 
-  return {
-    txCount: txs.length,
-    gasUsed: totalGas,
-    fee: totalFee
-  };
+    return { txCount: txs.length, gasUsed: totalGas, fee: totalFee };
+  } catch (err) {
+    return { txCount: 0, gasUsed: 0, fee: 0 };
+  }
 }
-
 
 compareBtn.addEventListener("click", async () => {
   const A = addrAInput.value.trim();
@@ -294,36 +295,7 @@ compareBtn.addEventListener("click", async () => {
 
     compareStatusEl.textContent = "";
     compareResultCard.classList.remove("hidden");
-
   } catch (err) {
     compareStatusEl.textContent = "Error fetching data.";
   }
 });
-
-
-// =======================
-// THEME TOGGLE
-// =======================
-
-function applyTheme(theme) {
-  if (theme === "light") {
-    document.body.classList.add("light");
-    themeToggleBtn.textContent = "🌞 Light";
-  } else {
-    document.body.classList.remove("light");
-    themeToggleBtn.textContent = "🌙 Dark";
-  }
-}
-
-themeToggleBtn.addEventListener("click", () => {
-  const newTheme =
-    document.body.classList.contains("light") ? "dark" : "light";
-
-  applyTheme(newTheme);
-  localStorage.setItem("arc_theme", newTheme);
-});
-
-(function initTheme() {
-  const saved = localStorage.getItem("arc_theme");
-  applyTheme(saved || "dark");
-})();
