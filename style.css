@@ -335,7 +335,7 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
 /* ============================ MOBILE FIXES v2 ============================ */ 
 @media (max-width: 600px) { 
   .field input { 
-    padding: 14px 14px !important; 
+    padding: 14px 4px !important; 
     border-radius: 10px !important; 
     font-size: 16px !important; 
   } 
@@ -366,4 +366,20 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
     padding: 22px !important; 
     border-radius: 20px !important; 
   } 
+  /* -------------------------------------------------
+   FIX: Alinhar botões do Quick Presets lado a lado
+------------------------------------------------- */
+.preset-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap; /* impede quebra de linha */
 }
+
+.btn-chip {
+  flex: 1;
+  min-width: 90px;
+  text-align: center;
+}
+
