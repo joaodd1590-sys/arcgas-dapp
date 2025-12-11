@@ -1,6 +1,7 @@
-/* ============================================
-   THEME VARIABLES (dark-only)
-============================================ */
+/* ============================
+   ARC Gas Estimator – Final Version (Dark Only)
+   ============================ */
+
 :root {
   --bg: #0b0f1a;
   --card: #111623;
@@ -12,7 +13,6 @@
   --success: #2ecc71;
 }
 
-/* GLOBAL */
 body {
   background: var(--bg);
   color: var(--text-main);
@@ -20,7 +20,10 @@ body {
   margin: 0;
 }
 
-.hidden { display: none; }
+/* GLOBAL */
+.hidden {
+  display: none;
+}
 
 .app-shell {
   max-width: 900px;
@@ -28,131 +31,209 @@ body {
   padding: 0 20px 40px;
 }
 
-/* HEADER - centered title + subtitle */
+/* ============================
+   HEADER – Now centered
+   ============================ */
 .app-header {
-  display: flex;
-  justify-content: center; /* centered horizontally */
-  align-items: center;
-  text-align: center; /* center title + subtitle text */
-  margin-bottom: 24px;
-  gap: 8px;
+  text-align: center;
+  margin-bottom: 30px;
 }
+
 .app-header h1 {
-  font-size: 27px;
+  font-size: 32px;
+  font-weight: 700;
   margin: 0;
-  letter-spacing: 0.05em;
 }
+
 .subtitle {
+  margin-top: 6px;
   color: var(--text-muted);
-  font-size: 14px;
-  margin-top: 4px;
+  font-size: 15px;
 }
 
 /* CARD */
 .card {
   background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 18px;
-  margin-top: 22px;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 26px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
 }
 
 /* FORM FIELDS */
-.field { margin-top: 14px; }
+.field {
+  margin-top: 14px;
+}
+
 .field label {
   font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 4px;
   display: block;
 }
+
 .field input {
   width: 100%;
-  padding: 14px 14px;
-  border-radius: 12px;
+  padding: 14px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: #161d2e;
   color: var(--text-main);
-  font-size: 16px;
+  font-size: 15px;
 }
 
 /* BUTTONS */
-.btn-primary,
-.btn-secondary {
+.btn-primary {
   border: none;
   cursor: pointer;
-  font-size: 15px;
-  border-radius: 999px;
-  padding: 12px 14px;
-  font-weight: 600;
-  transition: 0.18s ease;
-}
-
-.btn-primary {
   width: 100%;
+  padding: 16px 0;
   background: var(--accent);
+  border-radius: 999px;
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 22px;
   color: #000;
-  margin-top: 18px;
+  transition: 0.18s ease;
   box-shadow: 0 5px 12px rgba(29,155,240,0.45);
 }
-.btn-primary:hover { background: var(--accent-hover); }
 
-.btn-secondary {
-  background: #1b2333;
-  color: var(--text-main);
-  border: 1px solid var(--border);
+.btn-primary:hover {
+  background: var(--accent-hover);
 }
 
-/* PRESET */
-.preset-buttons { display:flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
-.btn-chip { padding: 10px 16px; border-radius: 999px; border:1px solid var(--border); background:transparent; color:var(--text-muted); font-size:13px; }
+/* CHIP BUTTONS */
+.preset-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
 
-/* RESULT */
-.result-card { margin-top: 14px; padding: 16px; border-radius: 12px; background: #0d1320; border:1px solid var(--border); }
-.result-row { display:flex; justify-content:space-between; padding:4px 0; }
-.result-grid { margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.btn-chip {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.18s;
+}
+
+.btn-chip.active {
+  background: var(--accent);
+  color: #000;
+}
+
+/* RESULT CARD */
+.result-card {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #0d1320;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+}
+
+.label {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* GRID */
+.result-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
 
 /* FOOTER */
-.app-footer { margin-top:40px; padding:26px 0; text-align:center; font-size:13px; color:var(--text-muted); }
-
-/* SHAKES + FOCUS */
-.shake { animation: shakeAnim 0.3s ease; }
-@keyframes shakeAnim {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-4px); }
-  100% { transform: translateX(0); }
+.app-footer {
+  margin-top: 40px;
+  padding: 30px 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
 }
-input:focus { outline:none !important; box-shadow:none !important; border-color:var(--accent) !important; }
 
-/* MOBILE (single block) */
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 12px;
+}
+
+.footer-icons a {
+  color: var(--text-muted);
+  transition: 0.2s;
+}
+
+.footer-icons a:hover {
+  color: var(--accent);
+  transform: scale(1.15);
+}
+
+/* ============================
+       MOBILE FIXES
+   ============================ */
 @media (max-width: 600px) {
-  .app-header {
-    flex-direction: column;
-    gap: 6px;
-    align-items: center;
+
+  /* Center titles automatically */
+  .app-header h1 {
+    font-size: 26px;
   }
 
-  .card { padding: 20px !important; border-radius: 18px !important; }
+  .subtitle {
+    font-size: 14px;
+  }
 
+  /* Inputs more comfortable */
   .field input {
-    padding: 14px 14px !important;
-    font-size: 16px !important;
+    padding: 16px !important;
     border-radius: 12px !important;
-    margin-bottom: 12px !important;
+    font-size: 16px !important;
   }
 
-  .preset-buttons { justify-content:center; gap:14px !important; }
-  .btn-chip { padding:10px 18px !important; font-size:15px !important; border-radius:20px !important; }
+  .preset-buttons {
+    justify-content: center !important;
+    gap: 12px !important;
+  }
+
+  .btn-chip {
+    padding: 10px 18px !important;
+    font-size: 15px !important;
+  }
 
   .btn-primary {
-    width: 100% !important;
-    padding: 16px 0 !important;
-    font-size: 17px !important;
-    border-radius: 22px !important;
-    margin-top: 20px !important;
+    padding: 18px 0 !important;
+    font-size: 18px !important;
   }
 
-  .result-grid { grid-template-columns: 1fr !important; }
+  .card {
+    padding: 22px !important;
+    border-radius: 20px !important;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Remove blue/yellow input glow */
+input:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
