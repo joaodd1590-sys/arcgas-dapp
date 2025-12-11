@@ -1,152 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ARC Gas Estimator</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-
   <div class="app-shell">
 
-    <header class="app-header">
+    <!-- HEADER: centered title + subtitle -->
+    <header class="app-header" role="banner" style="text-align:center;">
       <div>
-        <h1>ARC GAS ESTIMATOR</h1>
-        <p class="subtitle">🔬 Gas & cost tools for Arc Testnet · USDC-focused</p>
+        <h1>ARC Gas Estimator</h1>
+        <div class="subtitle">Estimate gas & compare wallets on the ARC network</div>
       </div>
-
-      <button id="themeToggle" class="btn-secondary small-btn">
-        🌙 Dark
-      </button>
     </header>
 
-    <!-- GAS COST ESTIMATOR -->
-    <section class="card">
-      <h2>Gas Cost Estimator</h2>
-      <p class="helper-text">
-        Estimate transaction cost in USDC using gas used and gas price (Gwei).
-      </p>
+    <!-- ESTIMATOR CARD -->
+    <section class="card" aria-labelledby="estimator-heading">
+      <h2 id="estimator-heading" style="font-size:16px; margin:0 0 8px 0;">Gas Cost Estimator</h2>
 
       <div class="field">
-        <label for="gasUsed">Gas Used</label>
-        <input id="gasUsed" type="number" placeholder="  Ex: 21000 (simple transfer)">
+        <label for="gasUsed">Gas used</label>
+        <input id="gasUsed" inputmode="decimal" placeholder="e.g. 21000" />
       </div>
 
       <div class="field">
-        <label for="gasPrice">Gas Price (Gwei)</label>
-        <input id="gasPrice" type="number" placeholder="  Ex: 5">
+        <label for="gasPrice">Gas price (Gwei)</label>
+        <input id="gasPrice" inputmode="decimal" placeholder="e.g. 1.0" />
       </div>
 
       <div class="preset-row">
-        <span class="label">Quick presets:</span>
         <div class="preset-buttons">
-          <button class="btn-chip" id="presetTransfer">Transfer</button>
-          <button class="btn-chip" id="presetContract">Contract call</button>
-          <button class="btn-chip" id="presetDeploy">Deploy</button>
+          <button id="presetTransfer" class="btn-chip">Transfer</button>
+          <button id="presetContract" class="btn-chip">Contract call</button>
+          <button id="presetDeploy" class="btn-chip">Deploy</button>
         </div>
       </div>
 
-      <button id="calculate" class="btn-primary full-btn">Estimate cost</button>
+      <div class="result-actions">
+        <button id="calculate" class="btn-primary">Estimate cost</button>
+      </div>
 
-      <div id="result" class="result-card hidden">
-        <h3>Estimation Result</h3>
-
-        <div class="result-row">
-          <span class="label">Estimated Fee</span>
-          <span id="feeUsdc" class="value highlight">0.00000000 USDC</span>
-        </div>
-
-        <div class="result-row">
-          <span class="label">Approx. USD (1 USDC ≈ $1)</span>
-          <span id="feeUsd" class="value">$0.00</span>
-        </div>
-
-        <div class="result-row">
-          <span class="label">Gas Used</span>
-          <span id="feeGasUsed" class="value">-</span>
-        </div>
-
-        <div class="result-row">
-          <span class="label">Gas Price</span>
-          <span id="feeGasPrice" class="value">-</span>
-        </div>
-
-        <div class="result-actions">
+      <div id="result" class="result-card hidden" aria-live="polite" style="margin-top:14px;">
+        <div class="result-row"><div class="label">Fee (USDC)</div><div id="feeUsdc" class="value">—</div></div>
+        <div class="result-row"><div class="label">Approx USD</div><div id="feeUsd" class="value">—</div></div>
+        <div class="result-row"><div class="label">Gas used</div><div id="feeGasUsed" class="value">—</div></div>
+        <div class="result-row"><div class="label">Gas price</div><div id="feeGasPrice" class="value">—</div></div>
+        <div style="margin-top:12px;">
           <button id="copySummary" class="btn-secondary">Copy summary</button>
         </div>
       </div>
     </section>
 
-    <!-- WALLET GAS COMPARISON -->
-    <section class="card">
-      <h2>Wallet Gas Comparison</h2>
-      <p class="helper-text">
-        Compare total gas usage between two wallets on Arc Testnet.
-      </p>
+    <!-- WALLET COMPARISON CARD -->
+    <section class="card" aria-labelledby="compare-heading">
+      <h2 id="compare-heading" style="font-size:16px; margin:0 0 8px 0;">Compare wallets</h2>
 
       <div class="field">
         <label for="addrA">Wallet A</label>
-        <input id="addrA" placeholder="  0x...">
+        <input id="addrA" placeholder="0x..." autocomplete="off" />
       </div>
 
       <div class="field">
         <label for="addrB">Wallet B</label>
-        <input id="addrB" placeholder="  0x...">
+        <input id="addrB" placeholder="0x..." autocomplete="off" />
       </div>
 
-      <button id="compare" class="btn-primary full-btn">Compare wallets</button>
+      <div style="margin-top:10px;">
+        <button id="compare" class="btn-primary">Compare wallets</button>
+        <div id="compareStatus" style="margin-top:8px;color:var(--text-muted);font-size:13px;"></div>
+      </div>
 
-      <p id="compareStatus" class="status-text"></p>
-
-      <div id="compareResult" class="result-card hidden">
+      <div id="compareResult" class="result-card hidden" style="margin-top:14px;">
         <div class="result-grid">
           <div>
-            <h4>Wallet A</h4>
-            <p><span class="label">Tx count:</span> <span id="aTxCount" class="value">-</span></p>
-            <p><span class="label">Gas used:</span> <span id="aGasUsed" class="value">-</span></p>
-            <p><span class="label">Est. fee (USDC):</span> <span id="aFeeUsdc" class="value">-</span></p>
+            <div class="result-row"><div class="label">Tx count</div><div id="aTxCount" class="value">—</div></div>
+            <div class="result-row"><div class="label">Gas used</div><div id="aGasUsed" class="value">—</div></div>
+            <div class="result-row"><div class="label">Fee</div><div id="aFeeUsdc" class="value">—</div></div>
           </div>
-
           <div>
-            <h4>Wallet B</h4>
-            <p><span class="label">Tx count:</span> <span id="bTxCount" class="value">-</span></p>
-            <p><span class="label">Gas used:</span> <span id="bGasUsed" class="value">-</span></p>
-            <p><span class="label">Est. fee (USDC):</span> <span id="bFeeUsdc" class="value">-</span></p>
+            <div class="result-row"><div class="label">Tx count</div><div id="bTxCount" class="value">—</div></div>
+            <div class="result-row"><div class="label">Gas used</div><div id="bGasUsed" class="value">—</div></div>
+            <div class="result-row"><div class="label">Fee</div><div id="bFeeUsdc" class="value">—</div></div>
           </div>
         </div>
 
-        <p class="compare-summary" id="compareSummaryText"></p>
+        <div style="margin-top:12px;">
+          <div id="compareSummaryText" style="font-weight:600;color:var(--text-muted);font-size:13px;">—</div>
+        </div>
       </div>
     </section>
 
     <!-- FOOTER -->
     <footer class="app-footer">
-
       <div class="footer-icons">
-          <a href="https://github.com/joaodd1590-sys/arcgas-dapp/tree/main" target="_blank">
-              <svg width="22" height="22" fill="currentColor">
-                  <path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.1-1.3-1.5-1.3-1.5-1-.6.1-.6.1-.6 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.7.4-1.3.7-1.6-2.7-.3-5.6-1.3-5.6-6a4.7 4.7 0 0 1 1.3-3.2 4.3 4.3 0 0 1 .1-3.1s1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2a4.3 4.3 0 0 1 .1 3.1 4.7 4.7 0 0 1 1.3 3.2c0 4.6-2.9 5.6-5.7 6a3.5 3.5 0 0 1 1 2.7v3.9c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/>
-              </svg>
-          </a>
-
-          <a href="https://x.com/cj54475427" target="_blank">
-              <svg width="22" height="22" fill="currentColor">
-                  <path d="M17.1 2H20l-6.3 7 7.3 9H15l-4.4-5.8L5.6 18H2l6.7-7.5L1.8 2H6l4.1 5.4L17.1 2Z"/>
-              </svg>
-          </a>
+        <!-- icons can be added here -->
       </div>
-
-      <p>Built by João Carlos · Arc Ecosystem Community 💙</p>
-      <p>© 2025 ARC Gas Estimator. All rights reserved.</p>
-
+      <div>Made for ARC</div>
     </footer>
-
   </div>
 
   <script src="gas.js"></script>
-
 </body>
 </html>
