@@ -9,15 +9,23 @@
   --success: #2ecc71;
 }
 
+/* LIGHT THEME VARIABLES */
+body.light {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --border: #cdd5e0;
+  --accent: #1d9bf0;
+  --accent-hover: #0078d4;
+  --text-main: #0b1020;
+  --text-muted: #444;
+}
+
 body {
   background: var(--bg);
   color: var(--text-main);
   font-family: system-ui, sans-serif;
   margin: 0;
 }
-
-/* REMOVEI TODO O LIGHT MODE */
-body.light { }
 
 /* GLOBAL */
 .hidden { display: none; }
@@ -30,21 +38,21 @@ body.light { }
 
 /* HEADER */
 .app-header {
-  text-align: center;  /* CENTRALIZAR TÍTULO */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 24px;
 }
 
 .app-header h1 {
   font-size: 27px;
   letter-spacing: 0.05em;
-  text-align: center;   /* CENTRALIZADO */
 }
 
 .subtitle {
   color: var(--text-muted);
   font-size: 14px;
   margin-top: 4px;
-  text-align: center;   /* CENTRALIZADO */
 }
 
 /* CARD */
@@ -55,6 +63,11 @@ body.light { }
   padding: 14px;
   margin-top: 22px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+body.light .card {
+  background: #ffffff !important;
+  border-color: #dcdce0 !important;
 }
 
 /* FORM FIELDS */
@@ -75,6 +88,12 @@ body.light { }
   background: #161d2e;
   color: var(--text-main);
   font-size: 14px;
+}
+
+body.light .field input {
+  background: #f2f4f7 !important;
+  color: #0b1020 !important;
+  border-color: #cdd5e0 !important;
 }
 
 /* BUTTONS */
@@ -105,6 +124,18 @@ body.light { }
   border: 1px solid var(--border);
 }
 
+/* Light-mode fix */
+body.light .btn-secondary {
+  background: #ffffff !important;
+  color: #1c1f26 !important;
+  border: 1px solid #d5ddeb !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+body.light .btn-secondary:hover {
+  background: #eef2f8 !important;
+}
+
 /* PRESET BUTTONS */
 .preset-row {
   margin-top: 12px;
@@ -131,9 +162,19 @@ body.light { }
   transition: 0.18s;
 }
 
+body.light .btn-chip {
+  background: #e9edf3 !important;
+  color: #333 !important;
+}
+
 .btn-chip.active {
   background: var(--accent);
   color: #000;
+}
+
+body.light .btn-chip.active {
+  background: var(--accent) !important;
+  color: #fff !important;
 }
 
 /* RESULT CARD */
@@ -145,14 +186,26 @@ body.light { }
   background: #0d1320;
 }
 
+body.light .result-card {
+  background: #f6f7fa !important;
+  border-color: #d0d4db !important;
+}
+
 .result-row {
   display: flex;
   justify-content: space-between;
   padding: 4px 0;
 }
 
-.label { color: var(--text-muted); font-size: 13px; }
-.value { font-size: 13px; font-weight: 600; }
+.label {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.value {
+  font-size: 13px;
+  font-weight: 600;
+}
 
 /* GRID */
 .result-grid {
@@ -188,11 +241,13 @@ body.light { }
   transform: scale(1.15);
 }
 
-/* MOBILE (SEU ORIGINAL, NÃO MEXI EM NADA) */
+/* --------------------------------------------
+   MOBILE (primeiro bloco que você escreveu)
+-------------------------------------------- */
 @media (max-width: 600px) {
   .app-header {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
   }
 
@@ -221,6 +276,9 @@ body.light { }
   .result-grid { grid-template-columns: 1fr; }
 }
 
+/* Input padding refinement */
+.field input { padding: 10px 4px !important; }
+
 /* Desktop button resize */
 @media (min-width: 601px) {
   .btn-primary {
@@ -230,3 +288,150 @@ body.light { }
   }
 }
 
+.result-actions { margin-top: 16px !important; }
+
+/* Card layout adjustments */
+.card {
+  max-width: 800px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 18px !important;
+  border-radius: 12px !important;
+}
+
+.app-header { margin-bottom: 12px !important; }
+.app-shell { padding-top: 10px !important; }
+.btn-primary { margin-top: 22px !important; }
+.card:last-of-type { padding-bottom: 1px !important; }
+
+/* Shake animation */
+.shake { animation: shakeAnim 0.3s ease; }
+
+@keyframes shakeAnim {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
+/* Remove focus glow */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: var(--border) !important;
+}
+
+/* Remove autofill yellow */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--card) inset !important;
+  -webkit-text-fill-color: var(--text-main) !important;
+}
+
+/* Remove tap highlight */
+* { -webkit-tap-highlight-color: transparent; }
+
+/* --------------------------------------------
+   MOBILE FIXES v2  (Segundo bloco que você enviou)
+-------------------------------------------- */
+@media (max-width: 600px) {
+
+  .field input {
+    padding: 14px 14px !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+  }
+
+  .preset-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 14px !important;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn-chip {
+    padding: 10px 18px !important;
+    font-size: 15px !important;
+    border-radius: 20px !important;
+  }
+
+  .btn-primary {
+    width: 100% !important;
+    padding: 16px 0 !important;
+    font-size: 17px !important;
+    border-radius: 22px !important;
+    margin-top: 24px !important;
+  }
+
+  .card {
+    padding: 22px !important;
+    border-radius: 20px !important;
+  }
+
+  /* REMOVE CONFLITO */
+  .field input { padding: 10px 4px; }
+
+  /* ============================
+   MOBILE LAYOUT (FINAL FIX)
+   ============================ */
+
+@media (max-width: 600px) {
+
+  /* Header organizado */
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* Cards maiores e mais confortáveis */
+  .card {
+    padding: 22px !important;
+    border-radius: 20px !important;
+  }
+
+  /* Inputs perfeitos no mobile */
+  .field input {
+    width: 100%;
+    padding: 14px 14px !important;
+    font-size: 16px !important;
+    border-radius: 12px !important;
+    margin-bottom: 12px !important;
+  }
+
+  /* Preset buttons centralizados e maiores */
+  .preset-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center !important;
+    gap: 14px !important;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+
+  .btn-chip {
+    padding: 10px 18px !important;
+    font-size: 15px !important;
+    border-radius: 20px !important;
+    text-align: center !important;
+    flex: none !important;
+  }
+
+  /* Botão azul grande e confortável */
+  .btn-primary {
+    width: 100% !important;
+    padding: 16px 0 !important;
+    margin-top: 24px !important;
+    font-size: 17px !important;
+    border-radius: 22px !important;
+  }
+
+  /* Result grid vira 1 coluna */
+  .result-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
