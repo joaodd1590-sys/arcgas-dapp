@@ -1,6 +1,3 @@
-// =======================
-// DOM ELEMENT REFERENCES
-// =======================
 const gasUsedInput = document.getElementById("gasUsed");
 const gasPriceInput = document.getElementById("gasPrice");
 const calculateBtn = document.getElementById("calculate");
@@ -30,272 +27,130 @@ const aFeeUsdcEl = document.getElementById("aFeeUsdc");
 const bTxCountEl = document.getElementById("bTxCount");
 const bGasUsedEl = document.getElementById("bGasUsed");
 const bFeeUsdcEl = document.getElementById("bFeeUsdc");
-
 const compareSummaryTextEl = document.getElementById("compareSummaryText");
 
-// =======================
-// VALIDATION HELPERS
-// =======================
-
-// ARC/EVM address = 0x + 40 hex chars
-function isValidArcAddress(addr) {
-  return /^0x[a-fA-F0-9]{40}$/.test(addr.trim());
-}
-
-// Decimal number (0–9 with optional decimal point)
-function isValidDecimalNumber(n) {
-  return /^[0-9]*([.][0-9]+)?$/.test(n.trim()) && n.trim() !== "";
-}
-
-// Add shake animation
-function shake(el) {
-  if (!el) return;
-  el.classList.add("shake");
-  setTimeout(() => el.classList.remove("shake"), 400);
-}
-
-// Create error message element under input
-function createErrorBox(input) {
-  const div = document.createElement("div");
-  div.style.fontSize = "12px";
-  div.style.marginTop = "4px";
-  div.style.color = "#ff7373";
-  input.insertAdjacentElement("afterend", div);
-  return div;
-}
-
-// Block paste of invalid address
-function blockInvalidAddressPaste(input) {
-  input.addEventListener("paste", e => {
-    const text = (e.clipboardData || window.clipboardData).getData("text");
-    if (!isValidArcAddress(text)) {
-      e.preventDefault();
-      shake(input);
-    }
-  });
-}
-
-// Full validation for address fields
-function setupAddressValidation(input) {
-  const errorBox = createErrorBox(input);
-  blockInvalidAddressPaste(input);
-
-  input.addEventListener("input", () => {
-    let v = input.value.trim().toLowerCase();
-    input.value = v;
-
-    if (v === "") {
-      input.style.border = "1px solid var(--border)";
-      errorBox.textContent = "";
-      return;
-    }
-
-    if (!isValidArcAddress(v)) {
-      input.style.border = "1px solid #ff4444";
-      input.style.color = "#ff7373";
-      errorBox.textContent = "Invalid ARC address";
-    } else {
-      input.style.border = "1px solid var(--border)";
-      input.style.color = "var(--text-main)";
-      errorBox.textContent = "";
-    }
-  });
-}
-
-// Full validation for numeric decimal inputs
-function setupDecimalValidation(input) {
-  const errorBox = createErrorBox(input);
-
-  // prevent invalid characters while typing (allow numbers and dot)
-  input.addEventListener("keydown", (e) => {
-    const allowedKeys = [
-      "Backspace","Tab","ArrowLeft","ArrowRight","Delete","Home","End"
-    ];
-    if (allowedKeys.includes(e.key)) return;
-    if (e.key === "." && input.value.includes(".")) {
-      e.preventDefault();
-      return;
-    }
-    if (!/^[0-9.]$/.test(e.key)) {
-      e.preventDefault();
-    }
-  });
-
-  input.addEventListener("input", () => {
-    const v = input.value.trim();
-
-    if (v === "") {
-      errorBox.textContent = "";
-      return;
-    }
-
-    if (!isValidDecimalNumber(v)) {
-      input.style.border = "1px solid #ff4444";
-      input.style.color = "#ff7373";
-      errorBox.textContent = "Enter a valid decimal number";
-    } else {
-      input.style.border = "1px solid var(--border)";
-      input.style.color = "var(--text-main)";
-      errorBox.textContent = "";
-    }
-  });
-}
-
-// =======================
-// APPLY VALIDATION
-// =======================
-setupAddressValidation(addrAInput);
-setupAddressValidation(addrBInput);
-
-setupDecimalValidation(gasUsedInput);
-setupDecimalValidation(gasPriceInput);
-
-// =======================
-// GAS CALCULATOR
-// =======================
+/* ==============================
+   GAS ESTIMATOR
+================================= */
 function runEstimator() {
-  const gas = gasUsedInput.value.trim();
-  const gwei = gasPriceInput.value.trim();
+  const gas = Number(gasUsedInput.value);
+  const gwei = Number(gasPriceInput.value);
 
-  if (!isValidDecimalNumber(gas) || !isValidDecimalNumber(gwei)) {
-    shake(gasUsedInput);
-    shake(gasPriceInput);
+  if (!gas || !gwei) {
+    alert("Enter valid values.");
     return;
   }
 
-  const gasNum = Number(gas);
-  const gweiNum = Number(gwei);
+  const fee = (gas * gwei) / 1e9;
 
-  const feeUSDC = (gasNum * gweiNum) / 1e9;
-
-  feeUsdcEl.textContent = feeUSDC.toFixed(8) + " USDC";
-  feeUsdEl.textContent = "$" + feeUSDC.toFixed(4);
-  feeGasUsedEl.textContent = gasNum;
-  feeGasPriceEl.textContent = gweiNum + " Gwei";
+  feeUsdcEl.textContent = `${fee.toFixed(8)} USDC`;
+  feeUsdEl.textContent = `$${fee.toFixed(4)}`;
+  feeGasUsedEl.textContent = gas;
+  feeGasPriceEl.textContent = `${gwei} Gwei`;
 
   resultCard.classList.remove("hidden");
 }
 
 calculateBtn.addEventListener("click", runEstimator);
 
-// =======================
-// GAS PRESET BUTTONS
-// =======================
-const presetButtons = [
-  presetTransferBtn,
-  presetContractBtn,
-  presetDeployBtn
-];
-
-function clearPresetActive() {
-  presetButtons.forEach(btn => btn.classList.remove("active"));
+/* PRESETS */
+function clearActive() {
+  presetTransferBtn.classList.remove("active");
+  presetContractBtn.classList.remove("active");
+  presetDeployBtn.classList.remove("active");
 }
 
-function applyPreset(btn, value) {
-  clearPresetActive();
-  btn.classList.add("active");
-  gasUsedInput.value = value;
-  gasUsedInput.dispatchEvent(new Event('input'));
-}
+presetTransferBtn.onclick = () => {
+  clearActive();
+  presetTransferBtn.classList.add("active");
+  gasUsedInput.value = 21000;
+};
 
-presetTransferBtn.addEventListener("click", () =>
-  applyPreset(presetTransferBtn, 21000)
-);
-presetContractBtn.addEventListener("click", () =>
-  applyPreset(presetContractBtn, 55000)
-);
-presetDeployBtn.addEventListener("click", () =>
-  applyPreset(presetDeployBtn, 600000)
-);
+presetContractBtn.onclick = () => {
+  clearActive();
+  presetContractBtn.classList.add("active");
+  gasUsedInput.value = 55000;
+};
 
-// =======================
-// COPY SUMMARY
-// =======================
-copySummaryBtn.addEventListener("click", () => {
-  const summary = `
+presetDeployBtn.onclick = () => {
+  clearActive();
+  presetDeployBtn.classList.add("active");
+  gasUsedInput.value = 600000;
+};
+
+/* COPY SUMMARY */
+copySummaryBtn.onclick = () => {
+  const text = `
 ARC Gas Estimate
 
 Fee: ${feeUsdcEl.textContent}
-Approx USD: ${feeUsdEl.textContent}
-Gas used: ${feeGasUsedEl.textContent}
-Gas price: ${feeGasPriceEl.textContent}
-`.trim();
+USD: ${feeUsdEl.textContent}
+Gas Used: ${feeGasUsedEl.textContent}
+Gas Price: ${feeGasPriceEl.textContent}
+`;
 
-  navigator.clipboard.writeText(summary).catch(()=>{ /* ignore */ });
-
+  navigator.clipboard.writeText(text);
   copySummaryBtn.textContent = "Copied!";
-  copySummaryBtn.classList.add("btn-copied");
+  setTimeout(() => (copySummaryBtn.textContent = "Copy summary"), 1000);
+};
 
-  setTimeout(() => {
-    copySummaryBtn.textContent = "Copy summary";
-    copySummaryBtn.classList.remove("btn-copied");
-  }, 900);
-});
+/* ==============================
+   WALLET GAS COMPARISON
+================================= */
+async function fetchWallet(address) {
+  const url =
+    `https://testnet.arcscan.app/api?module=account&action=txlist&address=${address}`;
 
-// =======================
-// WALLET COMPARISON
-// =======================
-async function fetchWalletGas(address) {
-  const url = `https://testnet.arcscan.app/api?module=account&action=txlist&address=${address}`;
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
+  const res = await fetch(url);
+  const data = await res.json();
 
-    const txs = data.result || [];
-    let totalGas = 0;
-    let totalFee = 0;
+  const txs = data.result ?? [];
 
-    txs.forEach(tx => {
-      const gasUsed = Number(tx.gasUsed || 0);
-      const gasPrice = Number(tx.gasPrice || 0);
+  let totalGas = 0;
+  let fee = 0;
 
-      totalGas += gasUsed;
-      totalFee += (gasUsed * gasPrice) / 1e18;
-    });
-
-    return { txCount: txs.length, gasUsed: totalGas, fee: totalFee };
-  } catch (err) {
-    return { txCount: 0, gasUsed: 0, fee: 0 };
+  for (const tx of txs) {
+    const gasUsed = Number(tx.gasUsed || 0);
+    const gasPrice = Number(tx.gasPrice || 0);
+    totalGas += gasUsed;
+    fee += (gasUsed * gasPrice) / 1e18;
   }
+
+  return {
+    txCount: txs.length,
+    gasUsed: totalGas,
+    fee,
+  };
 }
 
-compareBtn.addEventListener("click", async () => {
+compareBtn.onclick = async () => {
   const A = addrAInput.value.trim();
   const B = addrBInput.value.trim();
 
-  if (!isValidArcAddress(A) || !isValidArcAddress(B)) {
-    shake(addrAInput);
-    shake(addrBInput);
-    return;
-  }
-
-  compareStatusEl.textContent = "Fetching wallet data...";
+  compareStatusEl.textContent = "Loading...";
   compareResultCard.classList.add("hidden");
 
   try {
-    const [a, b] = await Promise.all([
-      fetchWalletGas(A),
-      fetchWalletGas(B)
-    ]);
+    const [a, b] = await Promise.all([fetchWallet(A), fetchWallet(B)]);
 
     aTxCountEl.textContent = a.txCount;
     aGasUsedEl.textContent = a.gasUsed;
-    aFeeUsdcEl.textContent = a.fee.toFixed(6) + " USDC";
+    aFeeUsdcEl.textContent = `${a.fee.toFixed(6)} USDC`;
 
     bTxCountEl.textContent = b.txCount;
     bGasUsedEl.textContent = b.gasUsed;
-    bFeeUsdcEl.textContent = b.fee.toFixed(6) + " USDC";
+    bFeeUsdcEl.textContent = `${b.fee.toFixed(6)} USDC`;
 
     compareSummaryTextEl.textContent =
       a.fee > b.fee
-        ? "Wallet A spent more gas overall."
+        ? "Wallet A spent more gas."
         : b.fee > a.fee
-        ? "Wallet B spent more gas overall."
-        : "Both wallets spent similar gas amounts.";
+        ? "Wallet B spent more gas."
+        : "Both wallets spent the same amount.";
 
     compareStatusEl.textContent = "";
     compareResultCard.classList.remove("hidden");
-  } catch (err) {
+  } catch {
     compareStatusEl.textContent = "Error fetching data.";
   }
-});
+};
