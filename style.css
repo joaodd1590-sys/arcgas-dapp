@@ -1,13 +1,9 @@
-/* =======================
-   RESET + VARIABLES
-======================= */
 :root {
   --bg: #0b0f1a;
   --surface: #111623;
   --border: #1e2738;
   --accent: #1d9bf0;
   --accent-hover: #4ab3ff;
-
   --text-main: #ffffff;
   --text-muted: #9ba3b5;
 }
@@ -20,28 +16,24 @@ body.light {
   --text-muted: #4a4f5c;
 }
 
-/* Reset básico */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: system-ui, sans-serif;
   background: var(--bg);
   color: var(--text-main);
 }
 
-/* =======================
-   NAVBAR
-======================= */
+/* NAVBAR */
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 14px 28px;
   border-bottom: 1px solid var(--border);
-  background: var(--bg);
 }
 
 .nav-left {
@@ -56,8 +48,8 @@ body {
 }
 
 .nav-title {
-  font-size: 16px;
   font-weight: 700;
+  font-size: 16px;
 }
 
 .nav-right {
@@ -76,18 +68,23 @@ body {
   color: var(--accent);
 }
 
-/* =======================
-   LAYOUT PRINCIPAL
-======================= */
+.btn-secondary {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+/* LAYOUT */
 .app-shell {
   max-width: 1100px;
   margin: 0 auto;
   padding: 40px 24px;
 }
 
-/* =======================
-   HERO
-======================= */
+/* HERO */
 .hero {
   max-width: 560px;
   margin: 60px auto;
@@ -100,48 +97,33 @@ body {
 }
 
 .hero p {
-  font-size: 16px;
   color: var(--text-muted);
 }
 
-/* =======================
-   CARDS
-======================= */
+/* CARD */
 .card {
   max-width: 560px;
-  margin: 0 auto 32px auto;
+  margin: 0 auto 32px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 22px;
 }
 
-/* =======================
-   TEXT
-======================= */
 h2 {
   margin-top: 0;
-  font-size: 20px;
 }
 
-.helper-text {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-}
-
-/* =======================
-   FORM
-======================= */
+/* FORM */
 .field {
   margin-bottom: 16px;
 }
 
 .field label {
-  display: block;
   font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 6px;
+  display: block;
 }
 
 .field input {
@@ -151,23 +133,14 @@ h2 {
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text-main);
-  font-size: 14px;
 }
 
-.field input:focus {
-  outline: none;
-  border-color: var(--accent);
-}
-
-/* =======================
-   PRESETS
-======================= */
+/* PRESETS */
 .preset-row {
   display: flex;
-  align-items: center;
   gap: 10px;
+  align-items: center;
   margin-bottom: 20px;
-  flex-wrap: wrap;
 }
 
 .preset-buttons {
@@ -180,9 +153,8 @@ h2 {
   border-radius: 999px;
   border: 1px solid var(--border);
   background: transparent;
-  color: var(--text-muted);
   font-size: 12px;
-  cursor: pointer;
+  color: var(--text-muted);
 }
 
 .btn-chip.active {
@@ -190,9 +162,7 @@ h2 {
   color: #000;
 }
 
-/* =======================
-   BUTTONS
-======================= */
+/* BUTTONS */
 .btn-primary {
   width: 100%;
   padding: 14px;
@@ -207,18 +177,7 @@ h2 {
   background: var(--accent-hover);
 }
 
-.btn-secondary {
-  padding: 8px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-main);
-  cursor: pointer;
-}
-
-/* =======================
-   RESULTS
-======================= */
+/* RESULTS */
 .result-card {
   margin-top: 20px;
   border-top: 1px solid var(--border);
@@ -228,8 +187,6 @@ h2 {
 .result-row {
   display: flex;
   justify-content: space-between;
-  font-size: 14px;
-  margin-bottom: 8px;
 }
 
 .result-grid {
@@ -240,20 +197,17 @@ h2 {
 
 .compare-summary {
   margin-top: 14px;
-  font-size: 14px;
   color: var(--text-muted);
 }
 
-/* =======================
-   FOOTER
-======================= */
+/* FOOTER */
 .site-footer {
   text-align: center;
   margin-top: 80px;
   padding-top: 24px;
   border-top: 1px solid var(--border);
-  font-size: 13px;
   color: var(--text-muted);
+  font-size: 13px;
 }
 
 .footer-icons {
@@ -273,26 +227,21 @@ h2 {
   transform: scale(1.15);
 }
 
-/* =======================
-   UTIL
-======================= */
 .hidden {
   display: none;
 }
 
-/* =======================
-   MOBILE
-======================= */
+/* MOBILE */
 @media (max-width: 640px) {
+  .nav-right a {
+    display: none;
+  }
+
   .hero h1 {
     font-size: 28px;
   }
 
   .result-grid {
     grid-template-columns: 1fr;
-  }
-
-  .nav-right a {
-    display: none;
   }
 }
