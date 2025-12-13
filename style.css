@@ -245,3 +245,12 @@ h2 {
     grid-template-columns: 1fr;
   }
 }
+/* Espaço extra acima do botão "Copy summary" no mobile */
+@media (max-width: 640px) {
+  #copySummary {
+    margin-top: 16px;
+    display: block;
+  }
+}
+
+
