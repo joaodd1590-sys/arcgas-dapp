@@ -256,6 +256,23 @@ h2 {
   color: var(--text-muted);
 }
 
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 12px;
+}
+
+.footer-icons a {
+  color: var(--text-muted);
+  transition: 0.2s;
+}
+
+.footer-icons a:hover {
+  color: var(--accent);
+  transform: scale(1.15);
+}
+
 /* =======================
    UTIL
 ======================= */
